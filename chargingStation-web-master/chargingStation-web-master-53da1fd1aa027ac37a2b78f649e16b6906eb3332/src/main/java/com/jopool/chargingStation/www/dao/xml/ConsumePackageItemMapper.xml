@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.ConsumePackageItemMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.ConsumePackageItem" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="consume_package_id" property="consumePackageId" jdbcType="CHAR" />
+    <result column="start_time" property="startTime" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, consume_package_id, start_time, end_time, payment, time, is_enabled, is_deleted, 
+    creator, creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from consume_package_item
+    where id = #{id,jdbcType=CHAR} and is_deleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    UPDATE  consume_package_item SET  is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackageItem" >
+    insert into consume_package_item (id,consume_package_id, start_time, end_time,
+      payment, time, is_enabled, 
+      is_deleted, creator, creation_time, 
+      modifier, modify_time)
+    values (#{id,jdbcType=CHAR},#{consumePackageId,jdbcType=CHAR}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR},
+      #{payment,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, #{isEnabled,jdbcType=BIT}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackageItem" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into consume_package_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="consumePackageId != null" >
+        consume_package_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="consumePackageId != null" >
+        #{consumePackageId,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackageItem" >
+    update consume_package_item
+    <set >
+      <if test="consumePackageId != null" >
+        consume_package_id = #{consumePackageId,jdbcType=CHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackageItem" >
+    update consume_package_item
+    set consume_package_id = #{consumePackageId,jdbcType=CHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=INTEGER},
+      time = #{time,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <!--custom -->
+  <select id="selectConsumePackageItemVo" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from consume_package_item
+    where is_deleted = 0
+    <if test="searchConsumePackageItemVo.status =='normal' ">
+      AND is_enabled = 1
+    </if>
+    <if test="searchConsumePackageItemVo.status =='disable' ">
+      AND is_enabled = 0
+    </if>
+    AND  consume_package_id = #{consumePackageId,jdbcType=CHAR}
+    ORDER  BY creation_time DESC
+  </select>
+
+  <delete id="deletedByConsumePackageId" parameterType="java.lang.String" >
+    UPDATE  consume_package_item SET  is_deleted = 1
+    where consume_package_id = #{consumePackageId,jdbcType=CHAR}
+  </delete>
+  <select id="selectByConsumePackageId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from consume_package_item
+    where consume_package_id = #{consumePackageId,jdbcType=CHAR} and is_deleted = 0
+    and is_enabled = 1
+  </select>
+</mapper>

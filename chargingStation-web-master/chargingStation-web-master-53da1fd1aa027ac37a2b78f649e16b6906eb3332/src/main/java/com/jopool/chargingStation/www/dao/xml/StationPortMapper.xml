@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.StationPortMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.StationPort">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="station_id" property="stationId" jdbcType="CHAR"/>
+        <result column="seq" property="seq" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="VARCHAR"/>
+        <result column="qr_code" property="qrCode" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="max_power" property="maxPower" jdbcType="INTEGER"/>
+        <result column="min_power" property="minPower" jdbcType="INTEGER"/>
+        <result column="trickle_time" property="trickleTime" jdbcType="INTEGER"/>
+        <result column="is_auto_stop" property="isAutoStop" jdbcType="BIT"/>
+        <result column="is_large_power" property="isLargePower" jdbcType="BIT"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="BIT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="StationPortInfoVo" type="com.jopool.chargingStation.www.vo.StationPortInfoVo">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="seq" property="seq" jdbcType="INTEGER"/>
+        <result column="number_station" property="numberStation" jdbcType="VARCHAR"/>
+        <result column="number_port" property="numberPort" jdbcType="VARCHAR"/>
+        <result column="name" property="stationName" jdbcType="VARCHAR"/>
+        <result column="address" property="stationAddress" jdbcType="VARCHAR"/>
+        <result column="real_name" property="operatorRealName" jdbcType="VARCHAR"/>
+        <result column="contact_name" property="estateName" jdbcType="VARCHAR"/>
+        <result column="contact_phone" property="estatePhone" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, station_id, seq, number, qr_code, status, max_power, min_power, trickle_time, 
+    is_auto_stop, is_large_power, is_enabled, is_deleted, creator, creation_time, modifier, 
+    modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from station_port
+        where id = #{id,jdbcType=CHAR} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update  station_port set is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.StationPort">
+    insert into station_port (id, station_id, seq, number,
+      qr_code, status, max_power, 
+      min_power, trickle_time, is_auto_stop, 
+      is_large_power, is_enabled, is_deleted, 
+      creator, creation_time, modifier, 
+      modify_time)
+    values (#{id,jdbcType=CHAR}, #{stationId,jdbcType=CHAR}, #{seq,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR},
+      #{qrCode,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{maxPower,jdbcType=INTEGER}, 
+      #{minPower,jdbcType=INTEGER}, #{trickleTime,jdbcType=INTEGER}, #{isAutoStop,jdbcType=BIT}, 
+      #{isLargePower,jdbcType=BIT}, #{isEnabled,jdbcType=BIT}, #{isDeleted,jdbcType=BIT}, 
+      #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.StationPort">
+        insert into station_port
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="stationId != null">
+                station_id,
+            </if>
+            <if test="seq != null">
+                seq,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="qrCode != null">
+                qr_code,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="maxPower != null">
+                max_power,
+            </if>
+            <if test="minPower != null">
+                min_power,
+            </if>
+            <if test="trickleTime != null">
+                trickle_time,
+            </if>
+            <if test="isAutoStop != null">
+                is_auto_stop,
+            </if>
+            <if test="isLargePower != null">
+                is_large_power,
+            </if>
+            <if test="isEnabled != null">
+                is_enabled,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="stationId != null">
+                #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="seq != null">
+                #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCode != null">
+                #{qrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="maxPower != null">
+                #{maxPower,jdbcType=INTEGER},
+            </if>
+            <if test="minPower != null">
+                #{minPower,jdbcType=INTEGER},
+            </if>
+            <if test="trickleTime != null">
+                #{trickleTime,jdbcType=INTEGER},
+            </if>
+            <if test="isAutoStop != null">
+                #{isAutoStop,jdbcType=BIT},
+            </if>
+            <if test="isLargePower != null">
+                #{isLargePower,jdbcType=BIT},
+            </if>
+            <if test="isEnabled != null">
+                #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.StationPort">
+        update station_port
+        <set>
+            <if test="stationId != null">
+                station_id = #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="seq != null">
+                seq = #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="qrCode != null">
+                qr_code = #{qrCode,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="maxPower != null">
+                max_power = #{maxPower,jdbcType=INTEGER},
+            </if>
+            <if test="minPower != null">
+                min_power = #{minPower,jdbcType=INTEGER},
+            </if>
+            <if test="trickleTime != null">
+                trickle_time = #{trickleTime,jdbcType=INTEGER},
+            </if>
+            <if test="isAutoStop != null">
+                is_auto_stop = #{isAutoStop,jdbcType=BIT},
+            </if>
+            <if test="isLargePower != null">
+                is_large_power = #{isLargePower,jdbcType=BIT},
+            </if>
+            <if test="isEnabled != null">
+                is_enabled = #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.StationPort">
+    update station_port
+    set station_id = #{stationId,jdbcType=CHAR},
+      seq = #{seq,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      qr_code = #{qrCode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      max_power = #{maxPower,jdbcType=INTEGER},
+      min_power = #{minPower,jdbcType=INTEGER},
+      trickle_time = #{trickleTime,jdbcType=INTEGER},
+      is_auto_stop = #{isAutoStop,jdbcType=BIT},
+      is_large_power = #{isLargePower,jdbcType=BIT},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+    <!--custom -->
+    <select id="selectStationId" resultType="Integer">
+    SELECT
+    count(*)
+    FROM  station_port
+    where is_deleted = 0
+    AND   station_id = #{stationId}
+     ORDER  BY  seq ASC
+  </select>
+    <select id="selectStationPort" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM station_port
+        where is_deleted = 0
+        AND station_id = #{stationId}
+        ORDER BY seq ASC
+    </select>
+    <select id="selectStationPortInfo" resultMap="StationPortInfoVo">
+      select
+		sp.id,sp.number as number_port ,sp.seq,s.number as number_station,s.name,s.address ,op.real_name, e.contact_name,e.contact_phone
+        from station_port sp,station s ,operator o, estate e,passport op
+        where  sp.is_deleted = 0 and sp.station_id = s.id and o.passport_id = op.id and e.operator_id = o.id and s.operator_id =o.id and s.estate_id =e.id
+        AND  sp.id = #{stationId}
+         ORDER  BY  sp.seq ASC
+    </select>
+    <select id="selectStationIdAndStatus" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select
+        count(*)
+        from station_port
+        where station_id = #{stationId} and is_deleted = 0
+        <if test="status != null and status != ''">
+            and status IN
+            <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectStationPortByStationIdAndStatus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from station_port
+        where station_id = #{stationId} and is_deleted = 0
+        <if test="status != null and status != ''">
+            and status IN
+            <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectByStationIdAndSeq" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM station_port WHERE station_id = #{stationId,jdbcType=CHAR} AND seq = #{seq,jdbcType=INTEGER}
+    </select>
+    <update id="updateStationPortStatusByStationId">
+        UPDATE station_port SET status = #{status,jdbcType=VARCHAR} WHERE station_id = #{stationId,jdbcType=CHAR}
+    </update>
+    <select id="selectByQrcode" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM station_port WHERE qr_code = #{qrCode,jdbcType=VARCHAR} and is_deleted = 0
+    </select>
+</mapper>

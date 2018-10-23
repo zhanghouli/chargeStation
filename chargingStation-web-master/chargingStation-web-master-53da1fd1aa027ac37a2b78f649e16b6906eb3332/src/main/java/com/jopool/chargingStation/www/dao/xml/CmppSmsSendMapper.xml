@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CmppSmsSendMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CmppSmsSend" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, content, result, creator, is_deleted, creation_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from cmpp_sms_send
+    where id = #{id,jdbcType=CHAR} and is_deleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update cmpp_sms_send set is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CmppSmsSend" >
+    insert into cmpp_sms_send (id, phone, content, 
+      result, creator, is_deleted, creation_time
+      )
+    values (#{id,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{result,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{isDeleted,jdbcType=BIT}, #{creationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CmppSmsSend" >
+    insert into cmpp_sms_send
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CmppSmsSend" >
+    update cmpp_sms_send
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CmppSmsSend" >
+    update cmpp_sms_send
+    set phone = #{phone,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      result = #{result,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <!--custom-->
+  <select id="selectBySearchBaseVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cmpp_sms_send
+    where is_deleted = 0
+    <if test="searchBaseVo.keyword != null and searchBaseVo.keyword != '' ">
+        and phone LIKE CONCAT('%','${searchBaseVo.keyword}','%')
+    </if>
+      ORDER  BY creation_time DESC
+  </select>
+</mapper>

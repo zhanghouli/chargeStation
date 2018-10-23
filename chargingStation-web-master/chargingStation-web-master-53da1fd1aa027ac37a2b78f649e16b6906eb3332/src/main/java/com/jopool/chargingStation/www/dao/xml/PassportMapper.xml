@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.PassportMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.Passport">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="BIT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="SearchPassportGovernment" type="com.jopool.chargingStation.www.vo.PassportOrGovernmentVo">
+        <id column="passport_id" property="id" jdbcType="CHAR"/>
+        <id column="id" property="governmentId" jdbcType="CHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="area_des" property="areaDes" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="SearchPassportOperator" type="com.jopool.chargingStation.www.vo.PassportOrOperatorVo">
+        <id column="passport_id" property="id" jdbcType="CHAR"/>
+        <id column="id" property="operatorId" jdbcType="CHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="area_des" property="areaDes" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="SearchPassportEstateVo" type="com.jopool.chargingStation.www.vo.PassportOrEstateVo">
+        <id column="passport_id" property="id" jdbcType="CHAR"/>
+        <id column="operator_id" property="operatorId" jdbcType="CHAR"/>
+        <id column="id" property="estateId" jdbcType="CHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="contact_name" property="contactName" jdbcType="VARCHAR"/>
+        <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR"/>
+        <result column="electric_bill" property="electricBill" jdbcType="INTEGER"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, real_name, user_name, phone, password, type, status, is_enabled, is_deleted,
+    creator, creation_time, modifier, modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from passport
+        where id = #{id,jdbcType=CHAR} And is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    UPDATE  passport  SET is_deleted = 1 where id=#{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.Passport">
+    insert into passport (id,real_name, user_name, phone,
+      password, type, status, 
+      is_enabled, is_deleted, creator, 
+      creation_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=CHAR},#{realName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{isEnabled,jdbcType=BIT}, #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.Passport">
+        insert into passport
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isEnabled != null">
+                is_enabled,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnabled != null">
+                #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.Passport">
+        update passport
+        <set>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnabled != null">
+                is_enabled = #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.Passport">
+    update passport
+    set real_name = #{realName,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+    <!--custom-->
+    <select id="selectByUserNameAndTypes" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM passport WHERE user_name = #{userName} AND is_deleted = 0 AND status=#{status}
+        AND type IN
+        <foreach collection="types" item="item" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <select id="selectByPhoneAndTypes" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM passport WHERE is_deleted = 0
+        <if test="phone !='' and phone !=null ">
+            AND phone = #{phone}
+        </if>
+        AND type IN
+        <foreach collection="types" item="item" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <select id="selectByPhoneAndType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from passport
+        where is_deleted = 0
+        <if test="type != null and type != '' ">
+            AND type= #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="phone != null and phone != '' ">
+            AND phone = #{phone,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <select id="selectByUserNameAndType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from passport
+        where user_name = #{userName,jdbcType=VARCHAR}
+        AND is_deleted = 0
+        AND type IN
+        <foreach collection="types" item="item" index="index" open="(" separator="," close=")">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <select id="selectPassportVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from passport
+        where is_deleted = 0
+        <if test="type !='' and type !=null ">
+            AND type=#{type,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.status !='all' and passportVo.status != '' and passportVo.status != null">
+            AND status=#{passportVo.status,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.keyword != null and passportVo.keyword != '' ">
+            AND (phone LIKE CONCAT('%','${passportVo.keyword}','%') OR real_name LIKE
+            CONCAT('%','${passportVo.keyword}','%') OR user_name LIKE CONCAT('%','${passportVo.keyword}','%') )
+        </if>
+        ORDER BY creation_time DESC
+
+    </select>
+
+    <select id="selectPassportGovernmentVo" resultMap="SearchPassportGovernment">
+        select
+        p.real_name,p.user_name,p.phone,p.status,p.type,p.creation_time,p.modify_time,g.area,g.area_des,g.id,g.passport_id
+        from passport p,`government` g
+        where p.is_deleted = 0 AND g.is_deleted = 0 AND p.id = g.passport_id
+        <if test="type !='' and type !=null ">
+            AND type=#{type,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.status !='all' and passportVo.status != '' and passportVo.status != null">
+            AND status=#{passportVo.status,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.keyword != null and passportVo.keyword != '' ">
+            AND (p.phone LIKE CONCAT('%','${passportVo.keyword}','%') OR p.real_name LIKE
+            CONCAT('%','${passportVo.keyword}','%') OR g.area_des LIKE CONCAT('%','${passportVo.keyword}','%') )
+        </if>
+        ORDER BY p.creation_time DESC
+
+    </select>
+    <select id="selectPassportOperatorVo" resultMap="SearchPassportOperator">
+        select
+        p.real_name,p.user_name,p.phone,p.status,p.type,p.creation_time,p.modify_time,o.area,o.area_des,o.id,o.passport_id
+        from passport p,`operator` o
+        where p.is_deleted = 0 AND o.is_deleted = 0 AND p.id = o.passport_id
+        <if test="type !='' and type !=null ">
+            AND type=#{type,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.status !='all' and passportVo.status != '' and passportVo.status != null">
+            AND status=#{passportVo.status,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.keyword != null and passportVo.keyword != '' ">
+            AND (p.phone LIKE CONCAT('%','${passportVo.keyword}','%') OR p.real_name LIKE
+            CONCAT('%','${passportVo.keyword}','%') OR o.area_des LIKE CONCAT('%','${passportVo.keyword}','%') )
+        </if>
+        ORDER BY p.creation_time DESC
+
+    </select>
+
+    <select id="selectPassportEstateVo" resultMap="SearchPassportEstateVo">
+        select
+        p.real_name,p.user_name,p.phone,p.status,p.creation_time,p.modify_time,e.id,e.passport_id,e.operator_id,e.contact_name,e.contact_phone,e.address,e.electric_bill,p2.real_name
+        AS operator_name
+        from passport p,`estate` e,`operator` o,`passport` p2
+        where p.is_deleted = 0 AND p.id = e.passport_id AND e.operator_id = o.id AND o.passport_id = p2.id
+        <if test="type !='' and type !=null ">
+            AND p.type=#{type,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.status !='all' and passportVo.status != '' and passportVo.status != null">
+            AND p.status=#{passportVo.status,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.operatorId !='' and passportVo.operatorId !=null ">
+            AND e.operator_id=#{passportVo.operatorId,jdbcType=VARCHAR}
+        </if>
+        <if test="passportVo.keyword != null and passportVo.keyword != '' ">
+            AND (p.phone LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR p.real_name LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR e.address LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR e.contact_name LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR e.contact_phone LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR p.user_name LIKE CONCAT('%','${passportVo.keyword}','%')
+            OR p2.real_name LIKE CONCAT('%','${passportVo.keyword}','%'))
+        </if>
+        ORDER BY p.creation_time DESC
+    </select>
+</mapper>

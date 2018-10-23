@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jopool.chargingStation.www.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.Order">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="carowner_id" jdbcType="CHAR" property="carownerId" />
+    <result column="station_id" jdbcType="CHAR" property="stationId" />
+    <result column="station_port_id" jdbcType="CHAR" property="stationPortId" />
+    <result column="station_snapshot_id" jdbcType="CHAR" property="stationSnapshotId" />
+    <result column="station_port_snapshot_id" jdbcType="CHAR" property="stationPortSnapshotId" />
+    <result column="estate_id" jdbcType="CHAR" property="estateId" />
+    <result column="operator_id" jdbcType="CHAR" property="operatorId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="charge_type" jdbcType="VARCHAR" property="chargeType" />
+    <result column="payType" jdbcType="VARCHAR" property="paytype" />
+    <result column="payment" jdbcType="INTEGER" property="payment" />
+    <result column="actual_payment" jdbcType="INTEGER" property="actualPayment" />
+    <result column="pay_time" jdbcType="INTEGER" property="payTime" />
+    <result column="actual_time" jdbcType="INTEGER" property="actualTime" />
+    <result column="power" jdbcType="VARCHAR" property="power" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+    <result column="creator" jdbcType="CHAR" property="creator" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <resultMap id="StationPortOrder" type="com.jopool.chargingStation.www.vo.StationPortOrderVo">
+        <id column="id" jdbcType="CHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="stationName" />
+        <result column="number" jdbcType="VARCHAR" property="portName" />
+        <result column="real_name" jdbcType="VARCHAR" property="carOwnerName" />
+        <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+        <result column="payment" jdbcType="INTEGER" property="payment" />
+        <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    </resultMap>
+  <resultMap id="OrderListVo" type="com.jopool.chargingStation.www.vo.OrderListVo">
+        <id column="id" jdbcType="CHAR" property="id" />
+        <result column="station_port_id" jdbcType="CHAR" property="stationPortId" />
+        <result column="carowner_id" jdbcType="CHAR" property="carownerId" />
+        <result column="carowner_name" jdbcType="VARCHAR" property="carownerName" />
+        <result column="carowner_phone" jdbcType="VARCHAR" property="carownerPhone" />
+        <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+        <result column="station_number" jdbcType="VARCHAR" property="stationNumber" />
+        <result column="station_address" jdbcType="VARCHAR" property="stationAddress" />
+        <result column="station_prot" jdbcType="VARCHAR" property="stationPort" />
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="actual_time" jdbcType="INTEGER" property="actualTime" />
+        <result column="payment" jdbcType="INTEGER" property="payment" />
+        <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    </resultMap>
+  <sql id="Base_Column_List">
+    id, carowner_id, station_id, station_port_id, station_snapshot_id, station_port_snapshot_id, 
+    estate_id, operator_id, status, charge_type, payType, payment, actual_payment, pay_time, 
+    actual_time, power, start_time, end_time, remark, is_deleted, creator, creation_time, 
+    modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `order`
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from `order`
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.Order">
+    insert into `order` (id, carowner_id, station_id,
+      station_port_id, station_snapshot_id, station_port_snapshot_id, 
+      estate_id, operator_id, status, 
+      charge_type, payType, payment, 
+      actual_payment, pay_time, actual_time, 
+      power, start_time, end_time, 
+      remark, is_deleted, creator, 
+      creation_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=CHAR}, #{carownerId,jdbcType=CHAR}, #{stationId,jdbcType=CHAR}, 
+      #{stationPortId,jdbcType=CHAR}, #{stationSnapshotId,jdbcType=CHAR}, #{stationPortSnapshotId,jdbcType=CHAR}, 
+      #{estateId,jdbcType=CHAR}, #{operatorId,jdbcType=CHAR}, #{status,jdbcType=VARCHAR}, 
+      #{chargeType,jdbcType=VARCHAR}, #{paytype,jdbcType=VARCHAR}, #{payment,jdbcType=INTEGER}, 
+      #{actualPayment,jdbcType=INTEGER}, #{payTime,jdbcType=INTEGER}, #{actualTime,jdbcType=INTEGER}, 
+      #{power,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.Order">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carownerId != null">
+        carowner_id,
+      </if>
+      <if test="stationId != null">
+        station_id,
+      </if>
+      <if test="stationPortId != null">
+        station_port_id,
+      </if>
+      <if test="stationSnapshotId != null">
+        station_snapshot_id,
+      </if>
+      <if test="stationPortSnapshotId != null">
+        station_port_snapshot_id,
+      </if>
+      <if test="estateId != null">
+        estate_id,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="chargeType != null">
+        charge_type,
+      </if>
+      <if test="paytype != null">
+        payType,
+      </if>
+      <if test="payment != null">
+        payment,
+      </if>
+      <if test="actualPayment != null">
+        actual_payment,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="actualTime != null">
+        actual_time,
+      </if>
+      <if test="power != null">
+        power,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="carownerId != null">
+        #{carownerId,jdbcType=CHAR},
+      </if>
+      <if test="stationId != null">
+        #{stationId,jdbcType=CHAR},
+      </if>
+      <if test="stationPortId != null">
+        #{stationPortId,jdbcType=CHAR},
+      </if>
+      <if test="stationSnapshotId != null">
+        #{stationSnapshotId,jdbcType=CHAR},
+      </if>
+      <if test="stationPortSnapshotId != null">
+        #{stationPortSnapshotId,jdbcType=CHAR},
+      </if>
+      <if test="estateId != null">
+        #{estateId,jdbcType=CHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        #{chargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null">
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="actualPayment != null">
+        #{actualPayment,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=INTEGER},
+      </if>
+      <if test="actualTime != null">
+        #{actualTime,jdbcType=INTEGER},
+      </if>
+      <if test="power != null">
+        #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.Order">
+    update `order`
+    <set>
+      <if test="carownerId != null">
+        carowner_id = #{carownerId,jdbcType=CHAR},
+      </if>
+      <if test="stationId != null">
+        station_id = #{stationId,jdbcType=CHAR},
+      </if>
+      <if test="stationPortId != null">
+        station_port_id = #{stationPortId,jdbcType=CHAR},
+      </if>
+      <if test="stationSnapshotId != null">
+        station_snapshot_id = #{stationSnapshotId,jdbcType=CHAR},
+      </if>
+      <if test="stationPortSnapshotId != null">
+        station_port_snapshot_id = #{stationPortSnapshotId,jdbcType=CHAR},
+      </if>
+      <if test="estateId != null">
+        estate_id = #{estateId,jdbcType=CHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeType != null">
+        charge_type = #{chargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null">
+        payType = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null">
+        payment = #{payment,jdbcType=INTEGER},
+      </if>
+      <if test="actualPayment != null">
+        actual_payment = #{actualPayment,jdbcType=INTEGER},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=INTEGER},
+      </if>
+      <if test="actualTime != null">
+        actual_time = #{actualTime,jdbcType=INTEGER},
+      </if>
+      <if test="power != null">
+        power = #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.Order">
+    update `order`
+    set carowner_id = #{carownerId,jdbcType=CHAR},
+      station_id = #{stationId,jdbcType=CHAR},
+      station_port_id = #{stationPortId,jdbcType=CHAR},
+      station_snapshot_id = #{stationSnapshotId,jdbcType=CHAR},
+      station_port_snapshot_id = #{stationPortSnapshotId,jdbcType=CHAR},
+      estate_id = #{estateId,jdbcType=CHAR},
+      operator_id = #{operatorId,jdbcType=CHAR},
+      status = #{status,jdbcType=VARCHAR},
+      charge_type = #{chargeType,jdbcType=VARCHAR},
+      payType = #{paytype,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=INTEGER},
+      actual_payment = #{actualPayment,jdbcType=INTEGER},
+      pay_time = #{payTime,jdbcType=INTEGER},
+      actual_time = #{actualTime,jdbcType=INTEGER},
+      power = #{power,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+  <select id="selectByStationId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where is_deleted = 0
+    <if test="carownerId != null and carownerId != '' ">
+      and carowner_id = #{carownerId,jdbcType=CHAR}
+    </if>
+    <if test="status != null and status != '' ">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="stationId != null and stationId != '' ">
+      and station_id = #{stationId,jdbcType=CHAR}
+    </if>
+    <if test="dateParam.timeStart != null and dateParam.timeStart != '' ">
+      <![CDATA[ AND creation_time >= #{dateParam.timeStart,jdbcType=CHAR} ]]>
+    </if>
+    <if test="dateParam.timeEnd != null and dateParam.timeEnd != '' ">
+      <![CDATA[ AND creation_time <= #{dateParam.timeEnd,jdbcType=CHAR} ]]>
+    </if>
+    order by creation_time desc
+  </select>
+
+  <select id="selectByPortIdAndDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where is_deleted = 0
+    and station_port_id = #{stationPortId,jdbcType=CHAR}
+    <if test="startTime != null and startTime != '' ">
+      <![CDATA[ AND creation_time >= #{startTime,jdbcType=CHAR} ]]>
+    </if>
+    <if test="endTime != null and endTime != '' ">
+      <![CDATA[ AND creation_time <= #{endTime,jdbcType=CHAR} ]]>
+    </if>
+    ORDER  BY  creation_time DESC
+  </select>
+
+  <select id="selectByStationIdTo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where is_deleted = 0
+    and station_id = #{stationId,jdbcType=CHAR}
+    ORDER  BY  creation_time DESC
+  </select>
+
+  <select id="selectByPortIdLastTime" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where is_deleted = 0
+    and station_port_id = #{stationPortId,jdbcType=CHAR}
+    <if test="status != '' and status != null ">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
+    ORDER  BY  creation_time DESC
+    limit 1
+  </select>
+
+  <select id="selectByStationPortId" resultMap="StationPortOrder">
+    select
+    o.id, s.name, sp.number, p.real_name, o.payment, o.creation_time, po.real_name as operator_name
+    from
+    `order`o,station s,station_port sp,carowner c ,passport p,passport po,operator op
+    where
+    o.is_deleted = 0
+    and o.station_id = s.id
+    and o.station_port_id =sp.id
+    and o.carowner_id = c.id
+    and p.id= c.passport_id
+    and s.operator_id = op.id
+    and op.passport_id = po .id
+    and station_port_id = #{stationId,jdbcType=CHAR}
+    <if test="searchBaseVo.keyword !='' and searchBaseVo.keyword != null">
+      AND (p.real_name LIKE CONCAT('%','${searchBaseVo.keyword}','%')
+      OR s.name LIKE CONCAT('%','${searchBaseVo.keyword}','%')
+      OR s.number LIKE CONCAT('%','${searchBaseVo.keyword}','%')
+      OR po.real_name LIKE CONCAT('%','${searchBaseVo.keyword}','%'))
+    </if>
+    <if test="dateParam.timeStart != null and dateParam.timeStart != '' ">
+      <![CDATA[ AND o.creation_time >= #{dateParam.timeStart,jdbcType=CHAR} ]]>
+    </if>
+    <if test="dateParam.timeEnd != null and dateParam.timeEnd != '' ">
+      <![CDATA[ AND o.creation_time <= #{dateParam.timeEnd,jdbcType=CHAR} ]]>
+    </if>
+    <!--<if test="status != '' and status != null ">-->
+      <!--and o.status = #{status,jdbcType=VARCHAR}-->
+    <!--</if>-->
+    ORDER  BY  o.creation_time DESC
+  </select>
+
+  <select id="searchOrderListVo" resultMap="OrderListVo">
+   select o.id , o.start_time, o.end_time, c.id as carowner_id, p.real_name as carowner_name, p.phone as carowner_phone, s.name as station_name, s.number as station_number, s.address as station_address, sp.seq as station_prot, o.status as order_status, o.actual_time, o.payment, o.creation_time, o.remark, sp.id as station_port_id   from
+    `order` o,station s,carowner c,passport p,station_port sp
+    where o.station_id=s.id and o.carowner_id=c.id and c.passport_id =p.id and o.station_port_id = sp.id and o.is_deleted = 0
+    <if test=" keyword !=null and keyword!=''">
+      AND (p.real_name LIKE CONCAT('%','${keyword}','%')
+      OR p.phone LIKE CONCAT('%','${keyword}','%')
+      OR s.name LIKE CONCAT('%','${keyword}','%')
+      OR s.number LIKE CONCAT('%','${keyword}','%')
+      OR s.address  LIKE CONCAT('%','${keyword}','%'))
+    </if>
+    <if test="status !=null and status != '' ">
+      and o.status = #{status,jdbcType=VARCHAR}
+    </if>
+    <if test="dateParam.timeStart != null and dateParam.timeStart != '' ">
+      <![CDATA[ AND o.creation_time >= #{dateParam.timeStart,jdbcType=CHAR} ]]>
+    </if>
+    <if test="dateParam.timeEnd != null and dateParam.timeEnd != '' ">
+      <![CDATA[ AND o.creation_time <= #{dateParam.timeEnd,jdbcType=CHAR} ]]>
+    </if>
+    ORDER  BY o.creation_time DESC
+  </select>
+
+
+
+  <select id="selectByCarOwnerIdOrStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `order`
+    where is_deleted = 0
+    and carowner_id=#{carOwnerId,jdbcType=VARCHAR}
+    and  status = #{status,jdbcType=VARCHAR}
+    group by station_id
+    ORDER  BY  creation_time DESC
+  </select>
+</mapper>

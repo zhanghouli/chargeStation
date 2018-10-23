@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CarLocationMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CarLocation" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="carowner_id" property="carownerId" jdbcType="CHAR" />
+    <result column="device_number" property="deviceNumber" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="bd_lat" property="bdLat" jdbcType="INTEGER" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="bd_lng" property="bdLng" jdbcType="INTEGER" />
+    <result column="longitude_flag" property="longitudeFlag" jdbcType="VARCHAR" />
+    <result column="battery" property="battery" jdbcType="VARCHAR" />
+    <result column="spead" property="spead" jdbcType="VARCHAR" />
+    <result column="vehicle_status" property="vehicleStatus" jdbcType="VARCHAR" />
+    <result column="mile" property="mile" jdbcType="VARCHAR" />
+    <result column="blank" property="blank" jdbcType="VARCHAR" />
+    <result column="mcc" property="mcc" jdbcType="VARCHAR" />
+    <result column="mnc" property="mnc" jdbcType="VARCHAR" />
+    <result column="lac" property="lac" jdbcType="VARCHAR" />
+    <result column="cell_id" property="cellId" jdbcType="VARCHAR" />
+    <result column="log_id" property="logId" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, carowner_id, device_number, time, date, latitude, bd_lat, longitude, bd_lng, 
+    longitude_flag, battery, spead, vehicle_status, mile, blank, mcc, mnc, lac, cell_id, 
+    log_id, is_deleted, creator, creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from car_location
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+     delete from   car_location
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CarLocation" >
+    insert into car_location (id, carowner_id, device_number, 
+      time, date, latitude, 
+      bd_lat, longitude, bd_lng, 
+      longitude_flag, battery, spead, 
+      vehicle_status, mile, blank, 
+      mcc, mnc, lac, cell_id, 
+      log_id, is_deleted, creator, 
+      creation_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=CHAR}, #{carownerId,jdbcType=CHAR}, #{deviceNumber,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{bdLat,jdbcType=INTEGER}, #{longitude,jdbcType=VARCHAR}, #{bdLng,jdbcType=INTEGER}, 
+      #{longitudeFlag,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, #{spead,jdbcType=VARCHAR}, 
+      #{vehicleStatus,jdbcType=VARCHAR}, #{mile,jdbcType=VARCHAR}, #{blank,jdbcType=VARCHAR}, 
+      #{mcc,jdbcType=VARCHAR}, #{mnc,jdbcType=VARCHAR}, #{lac,jdbcType=VARCHAR}, #{cellId,jdbcType=VARCHAR}, 
+      #{logId,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CarLocation" >
+    insert into car_location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="carownerId != null" >
+        carowner_id,
+      </if>
+      <if test="deviceNumber != null" >
+        device_number,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="bdLat != null" >
+        bd_lat,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="bdLng != null" >
+        bd_lng,
+      </if>
+      <if test="longitudeFlag != null" >
+        longitude_flag,
+      </if>
+      <if test="battery != null" >
+        battery,
+      </if>
+      <if test="spead != null" >
+        spead,
+      </if>
+      <if test="vehicleStatus != null" >
+        vehicle_status,
+      </if>
+      <if test="mile != null" >
+        mile,
+      </if>
+      <if test="blank != null" >
+        blank,
+      </if>
+      <if test="mcc != null" >
+        mcc,
+      </if>
+      <if test="mnc != null" >
+        mnc,
+      </if>
+      <if test="lac != null" >
+        lac,
+      </if>
+      <if test="cellId != null" >
+        cell_id,
+      </if>
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="carownerId != null" >
+        #{carownerId,jdbcType=CHAR},
+      </if>
+      <if test="deviceNumber != null" >
+        #{deviceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="bdLat != null" >
+        #{bdLat,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="bdLng != null" >
+        #{bdLng,jdbcType=INTEGER},
+      </if>
+      <if test="longitudeFlag != null" >
+        #{longitudeFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null" >
+        #{battery,jdbcType=VARCHAR},
+      </if>
+      <if test="spead != null" >
+        #{spead,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleStatus != null" >
+        #{vehicleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mile != null" >
+        #{mile,jdbcType=VARCHAR},
+      </if>
+      <if test="blank != null" >
+        #{blank,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null" >
+        #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="mnc != null" >
+        #{mnc,jdbcType=VARCHAR},
+      </if>
+      <if test="lac != null" >
+        #{lac,jdbcType=VARCHAR},
+      </if>
+      <if test="cellId != null" >
+        #{cellId,jdbcType=VARCHAR},
+      </if>
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CarLocation" >
+    update car_location
+    <set >
+      <if test="carownerId != null" >
+        carowner_id = #{carownerId,jdbcType=CHAR},
+      </if>
+      <if test="deviceNumber != null" >
+        device_number = #{deviceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="bdLat != null" >
+        bd_lat = #{bdLat,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="bdLng != null" >
+        bd_lng = #{bdLng,jdbcType=INTEGER},
+      </if>
+      <if test="longitudeFlag != null" >
+        longitude_flag = #{longitudeFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null" >
+        battery = #{battery,jdbcType=VARCHAR},
+      </if>
+      <if test="spead != null" >
+        spead = #{spead,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleStatus != null" >
+        vehicle_status = #{vehicleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mile != null" >
+        mile = #{mile,jdbcType=VARCHAR},
+      </if>
+      <if test="blank != null" >
+        blank = #{blank,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null" >
+        mcc = #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="mnc != null" >
+        mnc = #{mnc,jdbcType=VARCHAR},
+      </if>
+      <if test="lac != null" >
+        lac = #{lac,jdbcType=VARCHAR},
+      </if>
+      <if test="cellId != null" >
+        cell_id = #{cellId,jdbcType=VARCHAR},
+      </if>
+      <if test="logId != null" >
+        log_id = #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CarLocation" >
+    update car_location
+    set carowner_id = #{carownerId,jdbcType=CHAR},
+      device_number = #{deviceNumber,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      bd_lat = #{bdLat,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      bd_lng = #{bdLng,jdbcType=INTEGER},
+      longitude_flag = #{longitudeFlag,jdbcType=VARCHAR},
+      battery = #{battery,jdbcType=VARCHAR},
+      spead = #{spead,jdbcType=VARCHAR},
+      vehicle_status = #{vehicleStatus,jdbcType=VARCHAR},
+      mile = #{mile,jdbcType=VARCHAR},
+      blank = #{blank,jdbcType=VARCHAR},
+      mcc = #{mcc,jdbcType=VARCHAR},
+      mnc = #{mnc,jdbcType=VARCHAR},
+      lac = #{lac,jdbcType=VARCHAR},
+      cell_id = #{cellId,jdbcType=VARCHAR},
+      log_id = #{logId,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

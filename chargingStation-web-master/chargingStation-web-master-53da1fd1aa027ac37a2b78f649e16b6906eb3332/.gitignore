@@ -1,0 +1,14 @@
+target
+bin
+logs/
+.idea/
+*.iml
+out
+gen
+files
+uploads
+*.mwb.bak
+wro
+web/.idea
+web_en/.idea
+html/.idea

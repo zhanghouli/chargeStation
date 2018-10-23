@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.ChargeCostPackageMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.ChargeCostPackage" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="min_pow" property="minPow" jdbcType="INTEGER" />
+    <result column="max_pow" property="maxPow" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, min_pow, max_pow, cost, remark, is_enabled, is_deleted, creator, creation_time, 
+    modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from charge_cost_package
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from charge_cost_package
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.ChargeCostPackage" >
+    insert into charge_cost_package (id, min_pow, max_pow, 
+      cost, remark, is_enabled, 
+      is_deleted, creator, creation_time, 
+      modifier, modify_time)
+    values (#{id,jdbcType=CHAR}, #{minPow,jdbcType=INTEGER}, #{maxPow,jdbcType=INTEGER}, 
+      #{cost,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{isEnabled,jdbcType=BIT}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.ChargeCostPackage" >
+    insert into charge_cost_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="minPow != null" >
+        min_pow,
+      </if>
+      <if test="maxPow != null" >
+        max_pow,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="minPow != null" >
+        #{minPow,jdbcType=INTEGER},
+      </if>
+      <if test="maxPow != null" >
+        #{maxPow,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.ChargeCostPackage" >
+    update charge_cost_package
+    <set >
+      <if test="minPow != null" >
+        min_pow = #{minPow,jdbcType=INTEGER},
+      </if>
+      <if test="maxPow != null" >
+        max_pow = #{maxPow,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.ChargeCostPackage" >
+    update charge_cost_package
+    set min_pow = #{minPow,jdbcType=INTEGER},
+      max_pow = #{maxPow,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+  <select id="search" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from charge_cost_package
+    where is_deleted = 0
+    <if test="isEnabled > -1 ">
+      AND  is_enabled=#{isEnabled}
+    </if>
+    ORDER  BY creation_time DESC
+  </select>
+  <select id="selectChargeCostPackage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from charge_cost_package
+    where is_deleted = 0 AND  is_enabled = 1
+    ORDER  BY creation_time ASC
+    limit 4
+  </select>
+  <select id="selectByPow" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from charge_cost_package
+    where is_deleted = 0 AND  is_enabled = 1
+    <![CDATA[ AND min_pow < #{pow} ]]>
+    <![CDATA[ AND max_pow >= #{pow} ]]>
+    ORDER  BY creation_time DESC
+    limit 1
+  </select>
+</mapper>

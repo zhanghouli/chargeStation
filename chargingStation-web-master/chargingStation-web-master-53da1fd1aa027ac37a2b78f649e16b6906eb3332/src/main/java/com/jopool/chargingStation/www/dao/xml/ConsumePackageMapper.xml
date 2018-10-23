@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.ConsumePackageMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.ConsumePackage">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="operator_id" property="operatorId" jdbcType="CHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="BIT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ConsumePackageVo" type="com.jopool.chargingStation.www.vo.ConsumePackageVo">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="BIT"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, operator_id, name, is_enabled, is_deleted, creator, creation_time, modifier, 
+    modify_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from consume_package
+        where id = #{id,jdbcType=CHAR} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    UPDATE  consume_package set is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackage">
+    insert into consume_package (id,operator_id, name, is_enabled,
+      is_deleted, creator, creation_time, 
+      modifier, modify_time)
+    values (#{id,jdbcType=CHAR},#{operatorId,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{isEnabled,jdbcType=BIT},
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackage">
+        <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into consume_package
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="isEnabled != null">
+                is_enabled,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=CHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnabled != null">
+                #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackage">
+        update consume_package
+        <set>
+            <if test="operatorId != null">
+                operator_id = #{operatorId,jdbcType=CHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="isEnabled != null">
+                is_enabled = #{isEnabled,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.ConsumePackage">
+    update consume_package
+    set operator_id = #{operatorId,jdbcType=CHAR},
+      name = #{name,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+    <!--custom -->
+    <select id="selectConsumePackageVo" resultMap="ConsumePackageVo">
+        select
+        c.id, c.name, c.is_enabled, c.creation_time, c.modifier,
+        c.modify_time,p.real_name
+        from consume_package c,operator o,passport p
+        where c.is_deleted = 0 and c.operator_id= o.id and o.passport_id=p.id
+        <if test="status =='normal' ">
+            AND c.is_enabled = 1
+        </if>
+        <if test="status =='disable' ">
+            AND c.is_enabled = 0
+        </if>
+        <if test="keyword !=null and keyword!=''">
+            AND (c.name LIKE CONCAT('%','${keyword}','%') OR p.real_name LIKE CONCAT('%','${keyword}','%'))
+        </if>
+        ORDER by c.creation_time DESC
+    </select>
+
+    <select id="selectOperatorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consume_package
+        where is_deleted = 0
+        AND  operator_id = #{operatorId}
+        ORDER by creation_time DESC
+    </select>
+
+    <delete id="deleteByOperatorId" parameterType="java.lang.String">
+        UPDATE  consume_package set is_deleted = 1
+        where operator_id = #{operatorId,jdbcType=CHAR}
+    </delete>
+
+    <select id="selectByOperatorId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from consume_package
+        where is_deleted = 0
+        AND  operator_id = #{operatorId}
+        <if test="searchConsumePackageVo.status =='normal' ">
+            AND is_enabled = 1
+        </if>
+        <if test="searchConsumePackageVo.status =='disable' ">
+            AND is_enabled = 0
+        </if>
+        <if test="searchConsumePackageVo.keyword !=null and searchConsumePackageVo.keyword!=''">
+            AND (name LIKE CONCAT('%','${searchConsumePackageVo.keyword}','%'))
+        </if>
+        ORDER by creation_time DESC
+    </select>
+</mapper>

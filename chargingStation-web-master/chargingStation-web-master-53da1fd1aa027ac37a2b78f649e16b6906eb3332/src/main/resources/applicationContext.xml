@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://springframework.org/schema/util/spring-util.xsd">
+
+    <import resource="applicationContext-dao.xml"/>
+    <import resource="applicationContext-solr.xml"/>
+
+    <context:annotation-config/>
+    <context:property-placeholder
+            location="classpath:applicationResources.properties,classpath:jdbc.properties,classpath:solr.properties"
+            system-properties-mode="OVERRIDE"/>
+    <context:component-scan base-package="com.jopool.chargingStation.www.dao"/>
+    <context:component-scan base-package="com.jopool.chargingStation.www.service"/>
+
+    <aop:aspectj-autoproxy/>
+
+    <aop:config>
+        <aop:pointcut id="serviceMethods"
+                      expression="execution(* com.jopool.chargingStation.www.service.impl.*.*(..))"/>
+        <!-- 缓存-->
+        <aop:pointcut id="cacheMethods"
+                      expression="execution(* com.jopool.chargingStation.www.service..*.*(..)) and
+                @annotation(com.jopool.jweb.cache.annotation.Cacheable)"/>
+        <aop:pointcut id="flushMethods"
+                      expression="execution(* com.jopool.chargingStation.www.service..*.*(..)) and
+                @annotation(com.jopool.jweb.cache.annotation.CacheFlush)"/>
+
+        <!-- 事务 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+
+        <!--缓存-->
+        <aop:aspect id="cacheAspect" ref="methodCacheAspect">
+            <aop:around method="executeMethod" pointcut-ref="cacheMethods"/>
+        </aop:aspect>
+        <aop:aspect id="cacheFlushAspect" ref="methodCacheAspect">
+            <aop:after method="flushMethodCache" pointcut-ref="flushMethods"/>
+        </aop:aspect>
+    </aop:config>
+
+
+    <bean id="cacheBean" class="com.jopool.chargingStation.www.base.cache.CacheProviderFactoryBean"
+          destroy-method="destroy"/>
+    <bean id="redisProvider" class="com.jopool.chargingStation.www.base.cache.RedisProviderFactoryBean"
+          destroy-method="disconnect"/>
+    <bean id="methodCacheAspect" class="com.jopool.jweb.cache.aop.MethodCacheAspect" init-method="initialize"
+          destroy-method="destroy">
+        <property name="cache" ref="cacheBean"></property>
+    </bean>
+
+    <bean class="com.jopool.jweb.spring.SelfBeanPostProcessor"/>
+
+    <!-- quartz -->
+    <bean id="jobFactory" class="com.jopool.jweb.quartz.JWQuartzJobFactory"/>
+    <bean id="quartzScheduler" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <property name="jobFactory" ref="jobFactory"/>
+    </bean>
+    <bean id="schedulerService" class="com.jopool.jweb.quartz.QuartzSchedulerService">
+        <property name="quartzScheduler" ref="quartzScheduler"/>
+    </bean>
+    <!--mqtt-->
+    <bean id="mqttService" class="com.jopool.chargingStation.www.mqtt.MqttService"/>
+    <!--netty-->
+    <bean id="nettyService" class="com.jopool.chargingStation.www.netty.NettyService"/>
+    <!--cmpp-->
+    <bean id="cmppService" class="com.jopool.chargingStation.www.cmpp.CmppService"/>
+    <!--appPush-->
+    <bean id="appPushService" class="com.jopool.chargingStation.www.apppush.AppPushService"/>
+    <!--mqttlog-->
+    <bean id="mqttLogService" class="com.jopool.chargingStation.www.service.task.MqttMessageLogTask"/>
+</beans>

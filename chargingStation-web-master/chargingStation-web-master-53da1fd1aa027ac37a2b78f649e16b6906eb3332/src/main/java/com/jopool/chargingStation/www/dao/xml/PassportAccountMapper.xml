@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.PassportAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.PassportAccount" >
+    <id column="passport_id" property="passportId" jdbcType="CHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    passport_id, amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from passport_account
+    where passport_id = #{passportId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from passport_account
+    where passport_id = #{passportId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccount" >
+    insert into passport_account (passport_id, amount)
+    values (#{passportId,jdbcType=CHAR}, #{amount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccount" >
+    insert into passport_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="passportId != null" >
+        passport_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="passportId != null" >
+        #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccount" >
+    update passport_account
+    <set >
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where passport_id = #{passportId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccount" >
+    update passport_account
+    set amount = #{amount,jdbcType=INTEGER}
+    where passport_id = #{passportId,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+</mapper>

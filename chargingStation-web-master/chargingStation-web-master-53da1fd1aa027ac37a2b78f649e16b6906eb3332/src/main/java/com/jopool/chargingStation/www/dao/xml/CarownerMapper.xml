@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jopool.chargingStation.www.dao.CarownerMapper">
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.Carowner">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="passport_id" jdbcType="CHAR" property="passportId" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="device_number" jdbcType="VARCHAR" property="deviceNumber" />
+    <result column="device_status" jdbcType="VARCHAR" property="deviceStatus" />
+    <result column="fence_status" jdbcType="VARCHAR" property="fenceStatus" />
+    <result column="lat" jdbcType="INTEGER" property="lat" />
+    <result column="lng" jdbcType="INTEGER" property="lng" />
+    <result column="bd_lat" jdbcType="INTEGER" property="bdLat" />
+    <result column="bd_lng" jdbcType="INTEGER" property="bdLng" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="history_rest_time" jdbcType="INTEGER" property="historyRestTime" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="use_status" jdbcType="VARCHAR" property="useStatus" />
+    <result column="is_enabled" jdbcType="BIT" property="isEnabled" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+    <result column="creator" jdbcType="CHAR" property="creator" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, passport_id, open_id, device_number, device_status, fence_status, lat, lng, bd_lat, 
+    bd_lng, avatar, history_rest_time, client_id, use_status, is_enabled, is_deleted, creator, creation_time,
+    modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from carowner
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update from carowner set is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.Carowner">
+    insert into carowner (id, passport_id, open_id, 
+      device_number, device_status, fence_status, 
+      lat, lng, bd_lat, bd_lng, 
+      avatar, history_rest_time, client_id, use_status,
+      is_enabled, is_deleted, creator, 
+      creation_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=CHAR}, #{passportId,jdbcType=CHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{deviceNumber,jdbcType=VARCHAR}, #{deviceStatus,jdbcType=VARCHAR}, #{fenceStatus,jdbcType=VARCHAR}, 
+      #{lat,jdbcType=INTEGER}, #{lng,jdbcType=INTEGER}, #{bdLat,jdbcType=INTEGER}, #{bdLng,jdbcType=INTEGER}, 
+      #{avatar,jdbcType=VARCHAR}, #{historyRestTime,jdbcType=INTEGER},#{clientId,jdbcType=VARCHAR}, #{useStatus,jdbcType=VARCHAR},
+      #{isEnabled,jdbcType=BIT}, #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.Carowner">
+    insert into carowner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="passportId != null">
+        passport_id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="deviceNumber != null">
+        device_number,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="fenceStatus != null">
+        fence_status,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="bdLat != null">
+        bd_lat,
+      </if>
+      <if test="bdLng != null">
+        bd_lng,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="historyRestTime != null">
+        history_rest_time,
+      </if>
+      <if test="clientId != null">
+          client_id,
+      </if>
+      <if test="useStatus != null">
+        use_status,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="passportId != null">
+        #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNumber != null">
+        #{deviceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fenceStatus != null">
+        #{fenceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=INTEGER},
+      </if>
+      <if test="bdLat != null">
+        #{bdLat,jdbcType=INTEGER},
+      </if>
+      <if test="bdLng != null">
+        #{bdLng,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="historyRestTime != null">
+        #{historyRestTime,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null">
+          #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="useStatus != null">
+        #{useStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.Carowner">
+    update carowner
+    <set>
+      <if test="passportId != null">
+        passport_id = #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNumber != null">
+        device_number = #{deviceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="fenceStatus != null">
+        fence_status = #{fenceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=INTEGER},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=INTEGER},
+      </if>
+      <if test="bdLat != null">
+        bd_lat = #{bdLat,jdbcType=INTEGER},
+      </if>
+      <if test="bdLng != null">
+        bd_lng = #{bdLng,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="historyRestTime != null">
+        history_rest_time = #{historyRestTime,jdbcType=INTEGER},
+      </if>
+      <if test="clientId != null">
+          client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="useStatus != null">
+        use_status = #{useStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.Carowner">
+    update carowner
+    set passport_id = #{passportId,jdbcType=CHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      device_number = #{deviceNumber,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=VARCHAR},
+      fence_status = #{fenceStatus,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=INTEGER},
+      lng = #{lng,jdbcType=INTEGER},
+      bd_lat = #{bdLat,jdbcType=INTEGER},
+      bd_lng = #{bdLng,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      history_rest_time = #{historyRestTime,jdbcType=INTEGER},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      use_status = #{useStatus,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <!--custom-->
+    <select id="selectByPassportId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from carowner
+        where is_deleted = 0
+        AND passport_id = #{passportId,jdbcType=CHAR}
+    </select>
+
+    <delete id="deleteByPassportId" parameterType="java.lang.String">
+        UPDATE  carowner  SET  is_deleted = 1
+        where passport_id = #{passportId,jdbcType=CHAR}
+    </delete>
+    <select id="selectByDeviceNumber" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM carowner where is_deleted = 0
+        AND device_number = #{deviceNumber,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByGovernmentId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM carowner where is_deleted = 0
+    </select>
+</mapper>

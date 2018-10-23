@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+    <group name="basic">
+        <css>/css/style.css</css>
+        <css>/css/jquery.circliful.css</css>
+        <css>/css/font/iconfont.css</css>
+        <css>/js/3rd/validate/validationEngine.jquery.css</css>
+        <!--<css>/js/3rd/jstree/themes/default/style.min.css</css>-->
+        <css>/js/3rd/webuploader/webuploader.css</css>
+        <!--<css>/js/3rd/fancybox/jquery.fancybox-1.3.4.css</css>-->
+        <css>/js/3rd/select/select.css</css>
+        <css>/js/3rd/Jcrop/css/jquery.Jcrop.min.css</css>
+        <css>/js/3rd/select2/css/select2.css</css>
+
+        <js>/js/jquery/jquery.1.11.2.min.js</js>
+        <js>/js/jquery/jquery.zxxbox.3.0.js</js>
+        <js>/js/jquery/jquery.jp.ajaxbtn.js</js>
+        <js>/js/jquery/jquery.jp.autocomplete.js</js>
+        <js>/js/jquery/jquery-ui.min.js</js>
+        <js>/js/jquery/jquery.jp.serialize.js</js>
+        <js>/js/jquery/jquery.lazyload.js</js>
+        <js>/js/jquery/jquery.idTabs.min.js</js>
+        <js>/js/jquery/jquery.circliful.min.js</js>
+        <js>/js/3rd/validate/jquery.validationEngine.js</js>
+        <js>/js/3rd/validate/jquery.validationEngine-zh_CN.js</js>
+        <!--<js>/js/3rd/My97DatePicker/WdatePicker.js</js>-->
+        <js>/js/3rd/webuploader/webuploader.min.js</js>
+        <js>/js/3rd/jstree/jstree.min.js</js>
+        <js>/js/3rd/fancybox/jquery.fancybox-1.3.4.pack.js</js>
+        <js>/js/3rd/select/select-ui.min.js</js>
+        <!--<js>/js/3rd/mlellipsis/mlellipsis.js</js>-->
+        <js>/js/3rd/Jcrop/js/jquery.Jcrop.min.js</js>
+        <js>/js/3rd/select2/js/select2.min.js</js>
+        <js>/js/3rd/select2/js/i18n/zh-CN.js</js>
+        <!--<js>/js/3rd/echarts/echarts.js</js>-->
+        <js>/js/json2.js</js>
+        <js>/js/kiss-web.1.0.js</js>
+        <js>/js/bmap.js</js>
+    </group>
+
+</groups>

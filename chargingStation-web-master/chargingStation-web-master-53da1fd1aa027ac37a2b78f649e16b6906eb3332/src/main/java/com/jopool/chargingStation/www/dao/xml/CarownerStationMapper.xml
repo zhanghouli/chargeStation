@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CarownerStationMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CarownerStationKey" >
+    <id column="carowner_id" property="carownerId" jdbcType="CHAR" />
+    <id column="station_id" property="stationId" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CarownerStationKey" >
+    delete from carowner_station
+    where carowner_id = #{carownerId,jdbcType=CHAR}
+      and station_id = #{stationId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CarownerStationKey" >
+    insert into carowner_station (carowner_id, station_id)
+    values (#{carownerId,jdbcType=CHAR}, #{stationId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CarownerStationKey" >
+    insert into carowner_station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carownerId != null" >
+        carowner_id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carownerId != null" >
+        #{carownerId,jdbcType=CHAR},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--custom-->
+  <delete id="deleteByCarownerAndStationId" parameterType="com.jopool.chargingStation.www.base.entity.CarownerStationKey" >
+    delete from carowner_station
+    where carowner_id = #{carownerId,jdbcType=CHAR}
+    and station_id = #{stationId,jdbcType=CHAR}
+  </delete>
+  <select id="selectByCarownerId" resultMap="BaseResultMap">
+    select carowner_id,station_id
+    from carowner_station
+    where carowner_id = #{carownerId,jdbcType=CHAR}
+  </select>
+
+  <select id="selectByCarOnerIdAndStationdId" resultMap="BaseResultMap">
+    select carowner_id,station_id
+    from carowner_station
+    where carowner_id = #{carownerId,jdbcType=CHAR} AND station_id = #{stationId,jdbcType=CHAR}
+  </select>
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.WarningMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.Warning" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="station_id" property="stationId" jdbcType="CHAR" />
+    <result column="data_time" property="dataTime" jdbcType="TIMESTAMP" />
+    <result column="temperature" property="temperature" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="WarningVo" type="com.jopool.chargingStation.www.vo.WarningVo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="station_name" property="stationName" jdbcType="VARCHAR" />
+    <result column="station_number" property="stationNumber" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="estate_name" property="estateName" jdbcType="VARCHAR" />
+    <result column="warning_type" property="warningType" jdbcType="BIT" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="temp" property="temp" jdbcType="VARCHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, station_id, data_time, temperature, remark, type, is_deleted, creator, creation_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from warning
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from warning
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.Warning" >
+    insert into warning (id, station_id, data_time, 
+      temperature, remark, type, 
+      is_deleted, creator, creation_time
+      )
+    values (#{id,jdbcType=CHAR}, #{stationId,jdbcType=CHAR}, #{dataTime,jdbcType=TIMESTAMP}, 
+      #{temperature,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.Warning" >
+    insert into warning
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stationId != null" >
+        station_id,
+      </if>
+      <if test="dataTime != null" >
+        data_time,
+      </if>
+      <if test="temperature != null" >
+        temperature,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=CHAR},
+      </if>
+      <if test="dataTime != null" >
+        #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="temperature != null" >
+        #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.Warning" >
+    update warning
+    <set >
+      <if test="stationId != null" >
+        station_id = #{stationId,jdbcType=CHAR},
+      </if>
+      <if test="dataTime != null" >
+        data_time = #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="temperature != null" >
+        temperature = #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.Warning" >
+    update warning
+    set station_id = #{stationId,jdbcType=CHAR},
+      data_time = #{dataTime,jdbcType=TIMESTAMP},
+      temperature = #{temperature,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+  <select id="search" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from warning
+    where 1 = 1
+    <if test="type > 0">
+      and type = #{type,jdbcType=BIT}
+    </if>
+    <if test="reqType > 0 and type == 0" >
+      and (type = #{type1,jdbcType=BIT} or type = #{type4,jdbcType=BIT})
+    </if>
+    ORDER  BY creation_time DESC
+  </select >
+
+  <select  id="searchWarningKeyword" resultMap="WarningVo">
+  select
+   w.id, s.name as station_name, s.number as station_number , s.address as address , op.real_name as operator_name, ep.real_name as estate_name,
+   w.type as warning_type, w.remark, w.creation_time ,w.temperature as temp
+   from
+  warning w,station s ,operator o ,estate e ,passport op,passport ep
+  where w.station_id =s.id and s.operator_id=o.id and s.estate_id=e.id and o.passport_id=op.id and e.passport_id=ep.id and  w.is_deleted = 0 and s.is_deleted = 0
+    <if test="type > 0">
+      and w.type = #{type,jdbcType=BIT}
+    </if>
+    <if test="reqType > 0 and type == 0" >
+      and (w.type = #{type1,jdbcType=BIT} or w.type = #{type4,jdbcType=BIT})
+    </if>
+    <if test="searchStationVo.keyword !=null and searchStationVo.keyword!=''">
+      AND (s.address LIKE CONCAT('%','${searchStationVo.keyword}','%') OR
+      s.name LIKE CONCAT('%','${searchStationVo.keyword}','%')OR
+      s.number  LIKE CONCAT('%','${searchStationVo.keyword}','%')OR
+      op.real_name LIKE CONCAT('%','${searchStationVo.keyword}','%') OR
+      ep.real_name LIKE CONCAT('%','${searchStationVo.keyword}','%'))
+    </if>
+    <if test="searchStationVo.areaID !=null and searchStationVo.areaID!=''">
+      AND  s.area LIKE CONCAT('%','${searchStationVo.areaID}','%')
+    </if>
+
+    <if test="dateParam.timeStart != null and dateParam.timeStart != '' ">
+      <![CDATA[ AND w.creation_time >= #{dateParam.timeStart,jdbcType=CHAR} ]]>
+    </if>
+    <if test="dateParam.timeEnd != null and dateParam.timeEnd != '' ">
+      <![CDATA[ AND w.creation_time <= #{dateParam.timeEnd,jdbcType=CHAR} ]]>
+    </if>
+  ORDER  BY w.creation_time DESC
+  </select>
+</mapper>

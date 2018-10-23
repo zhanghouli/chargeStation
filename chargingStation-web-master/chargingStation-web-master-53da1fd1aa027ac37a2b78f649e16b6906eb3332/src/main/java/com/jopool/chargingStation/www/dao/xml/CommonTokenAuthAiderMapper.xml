@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CommonTokenAuthAiderMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CommonTokenAuthAider" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="passport_id" property="passportId" jdbcType="CHAR" />
+    <result column="auth_datetime" property="authDatetime" jdbcType="TIMESTAMP" />
+    <result column="auth_expired_datetime" property="authExpiredDatetime" jdbcType="TIMESTAMP" />
+    <result column="auth_sn" property="authSn" jdbcType="VARCHAR" />
+    <result column="auth_purpose" property="authPurpose" jdbcType="VARCHAR" />
+    <result column="sns_no" property="snsNo" jdbcType="VARCHAR" />
+    <result column="sns_type" property="snsType" jdbcType="VARCHAR" />
+    <result column="is_valid_token" property="isValidToken" jdbcType="BIT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, passport_id, auth_datetime, auth_expired_datetime, auth_sn, auth_purpose, sns_no, 
+    sns_type, is_valid_token, is_deleted, creator, creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from common_token_auth_aider
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from common_token_auth_aider
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CommonTokenAuthAider" >
+    insert into common_token_auth_aider (id, passport_id, auth_datetime, auth_expired_datetime,
+      auth_sn, auth_purpose, sns_no,
+      sns_type, is_valid_token, is_deleted,
+      creator, creation_time, modifier,
+      modify_time)
+    values (#{id,jdbcType=CHAR}, #{passportId,jdbcType=CHAR}, #{authDatetime,jdbcType=TIMESTAMP}, #{authExpiredDatetime,jdbcType=TIMESTAMP},
+      #{authSn,jdbcType=VARCHAR}, #{authPurpose,jdbcType=VARCHAR}, #{snsNo,jdbcType=VARCHAR},
+      #{snsType,jdbcType=VARCHAR}, #{isValidToken,jdbcType=BIT}, #{isDeleted,jdbcType=BIT},
+      #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR},
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonTokenAuthAider" >
+    insert into common_token_auth_aider
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="passportId != null" >
+        passport_id,
+      </if>
+      <if test="authDatetime != null" >
+        auth_datetime,
+      </if>
+      <if test="authExpiredDatetime != null" >
+        auth_expired_datetime,
+      </if>
+      <if test="authSn != null" >
+        auth_sn,
+      </if>
+      <if test="authPurpose != null" >
+        auth_purpose,
+      </if>
+      <if test="snsNo != null" >
+        sns_no,
+      </if>
+      <if test="snsType != null" >
+        sns_type,
+      </if>
+      <if test="isValidToken != null" >
+        is_valid_token,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="passportId != null" >
+        #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="authDatetime != null" >
+        #{authDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authExpiredDatetime != null" >
+        #{authExpiredDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSn != null" >
+        #{authSn,jdbcType=VARCHAR},
+      </if>
+      <if test="authPurpose != null" >
+        #{authPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="snsNo != null" >
+        #{snsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="snsType != null" >
+        #{snsType,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidToken != null" >
+        #{isValidToken,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonTokenAuthAider" >
+    update common_token_auth_aider
+    <set >
+      <if test="passportId != null" >
+        passport_id = #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="authDatetime != null" >
+        auth_datetime = #{authDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authExpiredDatetime != null" >
+        auth_expired_datetime = #{authExpiredDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authSn != null" >
+        auth_sn = #{authSn,jdbcType=VARCHAR},
+      </if>
+      <if test="authPurpose != null" >
+        auth_purpose = #{authPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="snsNo != null" >
+        sns_no = #{snsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="snsType != null" >
+        sns_type = #{snsType,jdbcType=VARCHAR},
+      </if>
+      <if test="isValidToken != null" >
+        is_valid_token = #{isValidToken,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CommonTokenAuthAider" >
+    update common_token_auth_aider
+    set passport_id = #{passportId,jdbcType=CHAR},
+      auth_datetime = #{authDatetime,jdbcType=TIMESTAMP},
+      auth_expired_datetime = #{authExpiredDatetime,jdbcType=TIMESTAMP},
+      auth_sn = #{authSn,jdbcType=VARCHAR},
+      auth_purpose = #{authPurpose,jdbcType=VARCHAR},
+      sns_no = #{snsNo,jdbcType=VARCHAR},
+      sns_type = #{snsType,jdbcType=VARCHAR},
+      is_valid_token = #{isValidToken,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+  <select id="selectLastByPhone" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM common_token_auth_aider WHERE sns_no = #{phone,jdbcType=VARCHAR} ORDER BY creation_time DESC limit 1
+  </select>
+</mapper>

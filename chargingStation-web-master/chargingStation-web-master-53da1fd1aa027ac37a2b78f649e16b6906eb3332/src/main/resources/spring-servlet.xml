@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 定义JSP -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 支持上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!-- 自动扫描且只扫描@Controller -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.jopool.chargingStation.www.controller"/>
+
+    <!--Restful-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
+                <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <mvc:mapping path="/common/**"/>
+            <mvc:mapping path="/common/file/**"/>
+            <mvc:mapping path="/api/common/**"/>
+            <mvc:mapping path="/api/pay/**"/>
+            <bean class="com.jopool.chargingStation.www.base.interceptors.ApiAccessInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/api/common/**/*"/>
+            <mvc:exclude-mapping path="/api/pay/**/*"/>
+            <mvc:exclude-mapping path="/api/station/getStations.htm"/>
+            <mvc:exclude-mapping path="/api/station/getStationDetail.htm"/>
+            <bean class="com.jopool.chargingStation.www.base.interceptors.ApiAuthInterceptor"></bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*"/>
+            <mvc:exclude-mapping path="/login.htm"/>
+            <mvc:exclude-mapping path="/doLogin.htm"/>
+            <mvc:exclude-mapping path="/api/**/*"/>
+            <mvc:exclude-mapping path="/app/**/*"/>
+            <mvc:exclude-mapping path="/common/**/*"/>
+            <bean class="com.jopool.chargingStation.www.base.interceptors.AuthInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--异常处理-->
+    <bean class="com.jopool.jweb.interceptors.JWebExceptionInterceptor"/>
+</beans>

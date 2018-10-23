@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.PassportAuthMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.PassportAuth" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="passport_id" property="passportId" jdbcType="CHAR" />
+    <result column="auth_type" property="authType" jdbcType="VARCHAR" />
+    <result column="auth_id" property="authId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, passport_id, auth_type, auth_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from passport_auth
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from passport_auth
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.PassportAuth" >
+    insert into passport_auth (id, passport_id, auth_type, auth_id
+    )
+    values (#{id,jdbcType=CHAR},#{passportId,jdbcType=CHAR}, #{authType,jdbcType=VARCHAR}, #{authId,jdbcType=CHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAuth" >
+    insert into passport_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="passportId != null" >
+        passport_id,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="authId != null" >
+        auth_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="passportId != null" >
+        #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        #{authId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAuth" >
+    update passport_auth
+    <set >
+      <if test="id != null" >
+        id = #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="passportId != null" >
+        passport_id = #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        auth_id = #{authId,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.PassportAuth" >
+    update passport_auth
+    set passport_id = #{passportId,jdbcType=CHAR},
+      auth_type = #{authType,jdbcType=VARCHAR},
+      auth_id = #{authId,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <!-- custom-->
+  <select id="selectByPassportId" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from passport_auth
+    where passport_id = #{passportId}
+  </select>
+
+  <delete id="deleteByPassportId" parameterType="java.lang.String" >
+    delete from passport_auth
+    where passport_id = #{passportId,jdbcType=CHAR}
+  </delete>
+</mapper>

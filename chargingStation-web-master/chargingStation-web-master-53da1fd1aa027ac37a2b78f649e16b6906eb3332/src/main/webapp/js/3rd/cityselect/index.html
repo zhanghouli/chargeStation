@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Select2实现全国省市区三级联动下拉菜单 - 素材家园</title>
+    <script type="text/javascript" src="../../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/area.js"></script>
+    <script type="text/javascript" src="js/location.js"></script>
+    <script src="js/select2.js"></script>
+    <script src="js/select2_locale_zh-CN.js"></script>
+    <link href="css/select2.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="main">
+    <center>
+        <li class="line"><label>出发地</label>
+
+            <div class="vocation">
+                <select class="loc_province" name="fromProvince" style="width:120px;">
+                </select>
+                <select class="loc_city" name="fromCity" style="width:120px; margin-left: 10px">
+                </select>
+                <select class="loc_town" name="fromTown" style="width:120px;margin-left: 10px">
+                </select>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <input type="button" id="btnval" value="获取值" style="padding:5px 15px;"/>
+        <input type="button" id="btntext" value="获取文本" style="padding:5px 15px;"/>
+    </center>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $.post('http://jbrain.jopool.com/api/region/getForWebCityPicker.htm?pk=ImXxJdmngANqOaVqmUmpxg9I', {}, function (r) {
+            showLocation({
+                item: r.result
+            });
+//            $('select[name="fromProvince"]').val(fromCityCodes[0]).trigger('change');
+//            $('select[name="fromCity"]').val(fromCityCodes[1]).trigger('change');
+//            $('select[name="fromTown"]').val(fromCityCodes[2]).trigger('change');
+        });
+    })
+</script>
+</body>
+</html>

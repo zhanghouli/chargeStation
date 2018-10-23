@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CommonIdentityRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CommonIdentityRule" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="rule_code" property="ruleCode" jdbcType="VARCHAR" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="current_value" property="currentValue" jdbcType="INTEGER" />
+    <result column="rule_length" property="ruleLength" jdbcType="SMALLINT" />
+    <result column="rule_prefix" property="rulePrefix" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, rule_code, rule_name, current_value, rule_length, rule_prefix, is_deleted, creator, 
+    creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from common_identity_rule
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from common_identity_rule
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CommonIdentityRule" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_identity_rule (rule_code, rule_name, current_value, 
+      rule_length, rule_prefix, is_deleted, 
+      creator, creation_time, modifier, 
+      modify_time)
+    values (#{ruleCode,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, #{currentValue,jdbcType=INTEGER}, 
+      #{ruleLength,jdbcType=SMALLINT}, #{rulePrefix,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, 
+      #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonIdentityRule" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into common_identity_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ruleCode != null" >
+        rule_code,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="currentValue != null" >
+        current_value,
+      </if>
+      <if test="ruleLength != null" >
+        rule_length,
+      </if>
+      <if test="rulePrefix != null" >
+        rule_prefix,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ruleCode != null" >
+        #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null" >
+        #{currentValue,jdbcType=INTEGER},
+      </if>
+      <if test="ruleLength != null" >
+        #{ruleLength,jdbcType=SMALLINT},
+      </if>
+      <if test="rulePrefix != null" >
+        #{rulePrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonIdentityRule" >
+    update common_identity_rule
+    <set >
+      <if test="ruleCode != null" >
+        rule_code = #{ruleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null" >
+        current_value = #{currentValue,jdbcType=INTEGER},
+      </if>
+      <if test="ruleLength != null" >
+        rule_length = #{ruleLength,jdbcType=SMALLINT},
+      </if>
+      <if test="rulePrefix != null" >
+        rule_prefix = #{rulePrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CommonIdentityRule" >
+    update common_identity_rule
+    set rule_code = #{ruleCode,jdbcType=VARCHAR},
+      rule_name = #{ruleName,jdbcType=VARCHAR},
+      current_value = #{currentValue,jdbcType=INTEGER},
+      rule_length = #{ruleLength,jdbcType=SMALLINT},
+      rule_prefix = #{rulePrefix,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

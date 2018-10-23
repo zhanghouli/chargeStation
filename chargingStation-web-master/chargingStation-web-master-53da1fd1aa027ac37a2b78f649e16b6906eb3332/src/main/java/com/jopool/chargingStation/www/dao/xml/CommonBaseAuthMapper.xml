@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CommonBaseAuthMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CommonBaseAuth">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="CHAR"/>
+        <result column="passport_type" property="passportType" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="key" property="key" jdbcType="VARCHAR"/>
+        <result column="val" property="val" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, parent_id, passport_type, type, name,sort, 'key', val
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from common_base_auth
+        where id = #{id,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from common_base_auth
+        where id = #{id,jdbcType=CHAR}
+    </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CommonBaseAuth">
+        <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into common_base_auth (parent_id, passport_type, type,
+        name, sort, key, val)
+        values (#{parentId,jdbcType=CHAR}, #{passportType,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+        #{name,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonBaseAuth">
+        <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into common_base_auth
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="passportType != null">
+                passport_type,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sort != null and sort>0">
+                sort,
+            </if>
+            <if test="key != null">
+                key,
+            </if>
+            <if test="val != null">
+                val,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                #{parentId,jdbcType=CHAR},
+            </if>
+            <if test="passportType != null">
+                #{passportType,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and sort>0">
+                #{name,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=VARCHAR},
+            </if>
+            <if test="key != null">
+                #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="val != null">
+                #{val,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonBaseAuth">
+        update common_base_auth
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=CHAR},
+            </if>
+            <if test="passportType != null">
+                passport_type = #{passportType,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null and sort>0">
+                sort = #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="key != null">
+                key = #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="val != null">
+                val = #{val,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CommonBaseAuth">
+        update common_base_auth
+        set parent_id = #{parentId,jdbcType=CHAR},
+        passport_type = #{passportType,jdbcType=VARCHAR},
+        type = #{type,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        sort = #{sort,jdbcType=INTEGER},
+        key = #{key,jdbcType=VARCHAR},
+        val = #{val,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <!--custom -->
+    <select id="selectPassportType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from common_base_auth
+        where parent_id is null
+        and passport_type LIKE CONCAT ('%','${type}','%')
+        ORDER BY sort ASC
+    </select>
+    <select id="selectParentId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from common_base_auth
+        where parent_id=#{parentId}
+        ORDER BY sort ASC
+    </select>
+</mapper>

@@ -1,0 +1,192 @@
+*, .wechat-tips {
+    box-sizing: border-box;
+    outline: 0;
+}
+
+body, html {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: #A9B1B3;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+
+p {
+    margin-top: 0;
+}
+
+.pattern {
+    position: absolute;
+    top: 0;
+    z-index: 3;
+    max-width: 312px;
+    width: 18%;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.pattern img {
+    width: 100%;
+    -webkit-transition: all 1s;
+    transition: all 1s;
+    pointer-events: none;
+}
+
+.pattern.left {
+    left: 0;
+}
+
+.pattern.right {
+    right: 0;
+}
+
+.out-container {
+    position: relative;
+    z-index: 2;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.main, .out-container {
+    height: 100%;
+    display: block;
+    background-color: #fff;
+}
+
+.main {
+    margin: 0 auto;
+    max-width: 94%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.main > header {
+    display: block;
+    max-height: 100%;
+    height: 100%;
+    min-height: 400px;
+}
+
+.main .table-container {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.main .cell-container {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.main > header .app-brief {
+    -webkit-transition: all .5s;
+    transition: all .5s;
+    text-align: center;
+}
+
+.main > header .icon-container {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.main > header .icon-container .icon {
+    position: static;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 17.54%;
+    background-color: #fff;
+}
+
+.main > header .icon-container .icon img {
+    max-width: 100%;
+    width: 120px;
+    height: 120px;
+    border-radius: 17.54%;
+}
+
+.main > header .wrapper {
+    margin-right: auto;
+    margin-left: auto;
+    width: 290px;
+}
+
+.main > header .name, .main > header body.passwd .name {
+    position: relative;
+    margin: 20px auto;
+    width: 290px;
+    color: #505556;
+    font-weight: 400;
+    text-align: center;
+    font-size: 24px;
+}
+
+.main header .app-brief .name .icon-warp {
+    vertical-align: bottom;
+}
+
+.main > header .name span, .main > header body.passwd .name span {
+    position: static;
+    display: inline-block;
+    max-width: 76%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    line-height: 1.6;
+}
+
+.main > header .release-info {
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-top: 30px;
+}
+
+.main > header .release-info:before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: block;
+    margin-left: -30%;
+    width: 60%;
+    border-top: 1px solid #DAE2E3;
+    content: ' ';
+}
+
+.main > header .release-info p {
+    margin-bottom: 4px;
+}
+
+#actions.type-ios button {
+    transition: all .25s;
+}
+
+.main > header .app-brief a {
+    display: inline-block;
+}
+
+.main > header .actions a {
+    padding: 12px 46px;
+    min-width: 200px;
+    border: 1px solid #A9B1B3;
+    border-radius: 40px;
+    color: #868C8E;
+    font-size: 14px;
+}
+
+a {
+    background-color: transparent;
+    text-decoration: none;
+}
+

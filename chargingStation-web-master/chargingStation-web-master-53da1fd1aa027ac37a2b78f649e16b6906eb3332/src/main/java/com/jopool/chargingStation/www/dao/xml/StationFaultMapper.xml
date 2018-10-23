@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.StationFaultMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.StationFault">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="passport_id" property="passportId" jdbcType="CHAR"/>
+        <result column="station_id" property="stationId" jdbcType="CHAR"/>
+        <result column="station_name" property="stationName" jdbcType="VARCHAR"/>
+        <result column="lng_e5" property="lngE5" jdbcType="INTEGER"/>
+        <result column="lat_e5" property="latE5" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="pics" property="pics" jdbcType="VARCHAR"/>
+        <result column="is_viewed" property="isViewed" jdbcType="BIT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+        <result column="modifier" property="modifier" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.jopool.chargingStation.www.base.entity.StationFault"
+               extends="BaseResultMap">
+        <result column="biz_deal_result" property="bizDealResult" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, passport_id, station_id, station_name, lng_e5, lat_e5, address, remark, pics, 
+    is_viewed, is_deleted, creator, creation_time, modifier, modify_time
+  </sql>
+    <sql id="Blob_Column_List">
+    biz_deal_result
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from station_fault
+        where id = #{id,jdbcType=CHAR} and is_deleted = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update  station_fault  set is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.StationFault">
+    insert into station_fault (id, passport_id, station_id, station_name,
+      lng_e5, lat_e5, address, 
+      remark, pics, is_viewed, 
+      is_deleted, creator, creation_time, 
+      modifier, modify_time, biz_deal_result
+      )
+    values (#{id,jdbcType=CHAR}, #{passportId,jdbcType=CHAR}, #{stationId,jdbcType=CHAR}, #{stationName,jdbcType=VARCHAR},
+      #{lngE5,jdbcType=INTEGER}, #{latE5,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{pics,jdbcType=VARCHAR}, #{isViewed,jdbcType=BIT}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{bizDealResult,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.StationFault">
+        insert into station_fault
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="passportId != null">
+                passport_id,
+            </if>
+            <if test="stationId != null">
+                station_id,
+            </if>
+            <if test="stationName != null">
+                station_name,
+            </if>
+            <if test="lngE5 != null">
+                lng_e5,
+            </if>
+            <if test="latE5 != null">
+                lat_e5,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="pics != null">
+                pics,
+            </if>
+            <if test="isViewed != null">
+                is_viewed,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+            <if test="modifier != null">
+                modifier,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+            <if test="bizDealResult != null">
+                biz_deal_result,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="passportId != null">
+                #{passportId,jdbcType=CHAR},
+            </if>
+            <if test="stationId != null">
+                #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="stationName != null">
+                #{stationName,jdbcType=VARCHAR},
+            </if>
+            <if test="lngE5 != null">
+                #{lngE5,jdbcType=INTEGER},
+            </if>
+            <if test="latE5 != null">
+                #{latE5,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="pics != null">
+                #{pics,jdbcType=VARCHAR},
+            </if>
+            <if test="isViewed != null">
+                #{isViewed,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bizDealResult != null">
+                #{bizDealResult,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.StationFault">
+        update station_fault
+        <set>
+            <if test="passportId != null">
+                passport_id = #{passportId,jdbcType=CHAR},
+            </if>
+            <if test="stationId != null">
+                station_id = #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="stationName != null">
+                station_name = #{stationName,jdbcType=VARCHAR},
+            </if>
+            <if test="lngE5 != null">
+                lng_e5 = #{lngE5,jdbcType=INTEGER},
+            </if>
+            <if test="latE5 != null">
+                lat_e5 = #{latE5,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="pics != null">
+                pics = #{pics,jdbcType=VARCHAR},
+            </if>
+            <if test="isViewed != null">
+                is_viewed = #{isViewed,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bizDealResult != null">
+                biz_deal_result = #{bizDealResult,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jopool.chargingStation.www.base.entity.StationFault">
+    update station_fault
+    set passport_id = #{passportId,jdbcType=CHAR},
+      station_id = #{stationId,jdbcType=CHAR},
+      station_name = #{stationName,jdbcType=VARCHAR},
+      lng_e5 = #{lngE5,jdbcType=INTEGER},
+      lat_e5 = #{latE5,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      pics = #{pics,jdbcType=VARCHAR},
+      is_viewed = #{isViewed,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      biz_deal_result = #{bizDealResult,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.StationFault">
+    update station_fault
+    set passport_id = #{passportId,jdbcType=CHAR},
+      station_id = #{stationId,jdbcType=CHAR},
+      station_name = #{stationName,jdbcType=VARCHAR},
+      lng_e5 = #{lngE5,jdbcType=INTEGER},
+      lat_e5 = #{latE5,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      pics = #{pics,jdbcType=VARCHAR},
+      is_viewed = #{isViewed,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <!--custom-->
+    <select id="selectStationFaultVo" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from station_fault
+        where is_deleted = 0
+        <if test="isViewed > -1">
+            AND is_viewed = #{isViewed}
+        </if>
+        <if test="keyword !='' and keyword != null ">
+            AND  (station_name LIKE  CONCAT('%','${keyword}','%') OR remark LIKE CONCAT('%','${keyword}','%') OR address LIKE CONCAT('%','${keyword}','%'))
+        </if>
+        ORDER  BY creation_time DESC
+    </select>
+</mapper>

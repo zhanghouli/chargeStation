@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.OpetatorStationMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.OpetatorStationKey">
+        <id column="operator_id" property="operatorId" jdbcType="CHAR"/>
+        <id column="station_id" property="stationId" jdbcType="CHAR"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.OpetatorStationKey">
+    delete from opetator_station
+    where operator_id = #{operatorId,jdbcType=CHAR}
+      and station_id = #{stationId,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.OpetatorStationKey">
+    insert into opetator_station (operator_id, station_id)
+    values (#{operatorId,jdbcType=CHAR}, #{stationId,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.OpetatorStationKey">
+        insert into opetator_station
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="operatorId != null">
+                operator_id,
+            </if>
+            <if test="stationId != null">
+                station_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=CHAR},
+            </if>
+            <if test="stationId != null">
+                #{stationId,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

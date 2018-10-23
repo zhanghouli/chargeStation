@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 日志保存路径为tomcat下面的logs下面的mobileLog文件夹，logback会自动创建文件夹，这样设置了就可以输出日志文件了 -->
+    <substitutionProperty name="logbase" value="logs/chargingStation/"/>
+    <!-- 这个是要配置输出文件的-->
+    <jmxConfigurator/>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{32}:%line -&gt; %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <logger name="com.jopool.chargingStation" level="INFO" additivity="false">
+        <appender-ref ref="Console"/>
+    </logger>
+
+</configuration>

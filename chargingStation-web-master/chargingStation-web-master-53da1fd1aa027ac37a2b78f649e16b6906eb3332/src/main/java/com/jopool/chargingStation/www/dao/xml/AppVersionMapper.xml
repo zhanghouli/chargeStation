@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.AppVersionMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.AppVersion">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="app_id" property="appId" jdbcType="VARCHAR"/>
+        <result column="os" property="os" jdbcType="VARCHAR"/>
+        <result column="last_version" property="lastVersion" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="is_force_update" property="isForceUpdate" jdbcType="BIT"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, app_id, os, last_version, url, is_force_update, description, is_deleted, creator, 
+    creation_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from app_version
+        where id = #{id,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from app_version
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.AppVersion">
+    insert into app_version (id, app_id, os, last_version, 
+      url, is_force_update, description, 
+      is_deleted, creator, creation_time
+      )
+    values (#{id,jdbcType=CHAR}, #{appId,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{lastVersion,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{isForceUpdate,jdbcType=BIT}, #{description,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.AppVersion">
+        insert into app_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="os != null">
+                os,
+            </if>
+            <if test="lastVersion != null">
+                last_version,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="isForceUpdate != null">
+                is_force_update,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="lastVersion != null">
+                #{lastVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isForceUpdate != null">
+                #{isForceUpdate,jdbcType=BIT},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.AppVersion">
+        update app_version
+        <set>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                os = #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="lastVersion != null">
+                last_version = #{lastVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="isForceUpdate != null">
+                is_force_update = #{isForceUpdate,jdbcType=BIT},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.AppVersion">
+    update app_version
+    set app_id = #{appId,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      last_version = #{lastVersion,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      is_force_update = #{isForceUpdate,jdbcType=BIT},
+      description = #{description,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <!--custom-->
+    <select id="selectByAppIdAndOS" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from app_version
+        WHERE is_deleted = 0
+        <if test="appId != null and appId != '' ">
+            AND app_id = #{appId,jdbcType=VARCHAR}
+        </if>
+        <if test="os != null and os != '' ">
+            AND os = #{os,jdbcType=VARCHAR}
+        </if>
+        order BY  creation_time DESC  limit 1
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM app_version where is_deleted = 0;
+    </select>
+</mapper>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.PassportAccountLogMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.PassportAccountLog" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="passport_id" property="passportId" jdbcType="CHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="amount_before" property="amountBefore" jdbcType="INTEGER" />
+    <result column="amount_after" property="amountAfter" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="PassportAccountLogVo" type="com.jopool.chargingStation.www.vo.PassportAccountLogVo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="amount_before" property="amountBefore" jdbcType="INTEGER" />
+    <result column="amount_after" property="amountAfter" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, passport_id, amount, amount_before, amount_after, type, remark, is_deleted, creator, 
+    creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from passport_account_log
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from passport_account_log
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccountLog" >
+    insert into passport_account_log (id, passport_id, amount, amount_before,
+      amount_after, type, remark,
+      is_deleted, creator, creation_time,
+      modifier, modify_time)
+    values (#{id,jdbcType=CHAR}, #{passportId,jdbcType=CHAR}, #{amount,jdbcType=INTEGER}, #{amountBefore,jdbcType=INTEGER},
+      #{amountAfter,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP},
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccountLog" >
+    <selectKey resultType="java.lang.String" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into passport_account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="passportId != null" >
+        passport_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="amountBefore != null" >
+        amount_before,
+      </if>
+      <if test="amountAfter != null" >
+        amount_after,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="passportId != null" >
+        #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="amountBefore != null" >
+        #{amountBefore,jdbcType=INTEGER},
+      </if>
+      <if test="amountAfter != null" >
+        #{amountAfter,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccountLog" >
+    update passport_account_log
+    <set >
+      <if test="passportId != null" >
+        passport_id = #{passportId,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="amountBefore != null" >
+        amount_before = #{amountBefore,jdbcType=INTEGER},
+      </if>
+      <if test="amountAfter != null" >
+        amount_after = #{amountAfter,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.PassportAccountLog" >
+    update passport_account_log
+    set passport_id = #{passportId,jdbcType=CHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      amount_before = #{amountBefore,jdbcType=INTEGER},
+      amount_after = #{amountAfter,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <!--custom-->
+  <select id="searchByPassportId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from passport_account_log
+    where passport_id = #{passportId,jdbcType=CHAR}
+    <if test="dateParam.timeStart != null">
+      <![CDATA[ and creation_time >= #{dateParam.timeStart,jdbcType=TIMESTAMP} ]]>
+    </if>
+    <if test="dateParam.timeEnd != null">
+      <![CDATA[ and creation_time <= #{dateParam.timeEnd,jdbcType=TIMESTAMP} ]]>
+    </if>
+    <if test="type != null and type != ''">
+      AND type = #{type,jdbcType=BIT}
+    </if>
+    order by creation_time DESC
+  </select>
+  <select id="selectByToday" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select
+    sum(amount)
+    from passport_account_log
+    where passport_id = #{passportId,jdbcType=CHAR}
+    <![CDATA[ and DATE_FORMAT(creation_time,'%Y%m%d') = DATE_FORMAT(#{today}, '%Y%m%d')  ]]>
+  </select>
+    <select id="selectByMonth" resultType="java.lang.Integer" parameterType="java.lang.String" >
+        select
+        sum(amount)
+        from passport_account_log
+        where passport_id = #{passportId,jdbcType=CHAR}
+        <![CDATA[ and DATE_FORMAT(creation_time,'%Y%m') =   DATE_FORMAT(#{month}, '%Y%m')  ]]>
+    </select>
+
+  <select id="selectAccountTypeAll"  resultMap="PassportAccountLogVo">
+    select
+    pal.id, pal.amount, pal.amount_before, pal.amount_after, pal.type, pal.remark, pal.creation_time, pal.modify_time, p.real_name
+    from passport_account_log pal,passport p
+    where pal.is_deleted = 0 and p.id= pal.passport_id
+    <if test="type !='' and type != null">
+      AND  pal.type = #{type}
+    </if>
+    <if test=" searchBaseVo.keyword != '' and searchBaseVo.keyword != null ">
+      AND (pal.remark LIKE CONCAT('%','${searchBaseVo.keyword}','%')
+          OR p.real_name LIKE CONCAT('%','${searchBaseVo.keyword}','%'))
+    </if>
+    <if test="dateParam.timeStart !='' and dateParam.timeStart !=null ">
+      <![CDATA[ and pal.creation_time >= #{dateParam.timeStart,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    <if test=" dateParam.timeEnd !='' and dateParam.timeEnd != null">
+      <![CDATA[ and pal.creation_time <= #{dateParam.timeEnd,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    ORDER BY  pal.creation_time DESC
+  </select>
+
+  <select id="selectTypeDateSumAmount" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select
+    sum(amount)
+    from passport_account_log
+    where is_deleted = 0
+    <if test="dateParam.timeStart !='' and dateParam.timeStart !=null ">
+      <![CDATA[ and creation_time >= #{dateParam.timeStart,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    <if test=" dateParam.timeEnd !='' and dateParam.timeEnd != null">
+      <![CDATA[ and creation_time <= #{dateParam.timeEnd,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    <if test="type !='' and type != null">
+      AND  type = #{type}
+    </if>
+   ORDER  BY creation_time DESC
+  </select>
+
+  <select id="selectTypeDateSumAmountOperatorOrEstate" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select
+    sum(amount)
+    from passport_account_log
+    where is_deleted = 0
+    <if test="dateParam.timeStart !='' and dateParam.timeStart !=null ">
+      <![CDATA[ and creation_time >= #{dateParam.timeStart,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    <if test=" dateParam.timeEnd !='' and dateParam.timeEnd != null">
+      <![CDATA[ and creation_time <= #{dateParam.timeEnd,jdbcType=TIMESTAMP}  ]]>
+    </if>
+    <if test="types !=null and types != '' ">
+      AND ( type = #{types[0]}  OR  type = #{types[1]} )
+    </if>
+    <if test="passportId != '' and passportId != null ">
+      AND  passport_id = #{passportId}
+    </if>
+      ORDER  BY creation_time DESC
+  </select>
+</mapper>

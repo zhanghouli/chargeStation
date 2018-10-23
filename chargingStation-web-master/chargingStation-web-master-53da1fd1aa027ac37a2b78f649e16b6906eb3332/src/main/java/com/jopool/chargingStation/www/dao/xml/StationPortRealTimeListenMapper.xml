@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.StationPortRealTimeListenMapper">
+    <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.StationPortRealTimeListen">
+        <id column="id" property="id" jdbcType="CHAR"/>
+        <result column="station_id" property="stationId" jdbcType="CHAR"/>
+        <result column="station_port_id" property="stationPortId" jdbcType="CHAR"/>
+        <result column="station_port_seq" property="stationPortSeq" jdbcType="INTEGER"/>
+        <result column="current" property="current" jdbcType="VARCHAR"/>
+        <result column="power" property="power" jdbcType="VARCHAR"/>
+        <result column="energy" property="energy" jdbcType="VARCHAR"/>
+        <result column="remaining_time" property="remainingTime" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="BIT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BIT"/>
+        <result column="creator" property="creator" jdbcType="CHAR"/>
+        <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, station_id, station_port_id, station_port_seq, current, power, energy, remaining_time, 
+    status, is_deleted, creator, creation_time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from station_port_real_time_listen
+        where id = #{id,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from station_port_real_time_listen
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.StationPortRealTimeListen">
+    insert into station_port_real_time_listen (id, station_id, station_port_id, 
+      station_port_seq, current, power, 
+      energy, remaining_time, status, 
+      is_deleted, creator, creation_time
+      )
+    values (#{id,jdbcType=CHAR}, #{stationId,jdbcType=CHAR}, #{stationPortId,jdbcType=CHAR}, 
+      #{stationPortSeq,jdbcType=INTEGER}, #{current,jdbcType=VARCHAR}, #{power,jdbcType=VARCHAR}, 
+      #{energy,jdbcType=VARCHAR}, #{remainingTime,jdbcType=INTEGER}, #{status,jdbcType=BIT}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.StationPortRealTimeListen">
+        insert into station_port_real_time_listen
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="stationId != null">
+                station_id,
+            </if>
+            <if test="stationPortId != null">
+                station_port_id,
+            </if>
+            <if test="stationPortSeq != null">
+                station_port_seq,
+            </if>
+            <if test="current != null">
+                current,
+            </if>
+            <if test="power != null">
+                power,
+            </if>
+            <if test="energy != null">
+                energy,
+            </if>
+            <if test="remainingTime != null">
+                remaining_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="creationTime != null">
+                creation_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=CHAR},
+            </if>
+            <if test="stationId != null">
+                #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="stationPortId != null">
+                #{stationPortId,jdbcType=CHAR},
+            </if>
+            <if test="stationPortSeq != null">
+                #{stationPortSeq,jdbcType=INTEGER},
+            </if>
+            <if test="current != null">
+                #{current,jdbcType=VARCHAR},
+            </if>
+            <if test="power != null">
+                #{power,jdbcType=VARCHAR},
+            </if>
+            <if test="energy != null">
+                #{energy,jdbcType=VARCHAR},
+            </if>
+            <if test="remainingTime != null">
+                #{remainingTime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.jopool.chargingStation.www.base.entity.StationPortRealTimeListen">
+        update station_port_real_time_listen
+        <set>
+            <if test="stationId != null">
+                station_id = #{stationId,jdbcType=CHAR},
+            </if>
+            <if test="stationPortId != null">
+                station_port_id = #{stationPortId,jdbcType=CHAR},
+            </if>
+            <if test="stationPortSeq != null">
+                station_port_seq = #{stationPortSeq,jdbcType=INTEGER},
+            </if>
+            <if test="current != null">
+                current = #{current,jdbcType=VARCHAR},
+            </if>
+            <if test="power != null">
+                power = #{power,jdbcType=VARCHAR},
+            </if>
+            <if test="energy != null">
+                energy = #{energy,jdbcType=VARCHAR},
+            </if>
+            <if test="remainingTime != null">
+                remaining_time = #{remainingTime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=BIT},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=CHAR},
+            </if>
+            <if test="creationTime != null">
+                creation_time = #{creationTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.jopool.chargingStation.www.base.entity.StationPortRealTimeListen">
+    update station_port_real_time_listen
+    set station_id = #{stationId,jdbcType=CHAR},
+      station_port_id = #{stationPortId,jdbcType=CHAR},
+      station_port_seq = #{stationPortSeq,jdbcType=INTEGER},
+      current = #{current,jdbcType=VARCHAR},
+      power = #{power,jdbcType=VARCHAR},
+      energy = #{energy,jdbcType=VARCHAR},
+      remaining_time = #{remainingTime,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+    <!--custom-->
+    <select id="selectByPortId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from station_port_real_time_listen
+        where station_port_id = #{stationPortId,jdbcType=CHAR}
+        order by creation_time desc
+        limit 30
+    </select>
+
+    <select id="selectByPortIdOrTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from station_port_real_time_listen
+        where station_port_id = #{portId,jdbcType=CHAR}
+        <![CDATA[ AND creation_time >= #{orderCreateTime,jdbcType=CHAR} ]]>
+        order by creation_time ASC
+    </select>
+
+    <select id="selectData" resultMap="BaseResultMap">
+        select t2.* from (SELECT id FROM station_port_real_time_listen
+        where station_port_id = #{stationPortId,jdbcType=CHAR}
+        <if test="dateParam.timeStart != null">
+            <![CDATA[ and creation_time >= #{dateParam.timeStart,jdbcType=TIMESTAMP} ]]>
+        </if>
+        <if test="dateParam.timeEnd != null">
+            <![CDATA[ and creation_time <= #{dateParam.timeEnd,jdbcType=TIMESTAMP} ]]>
+        </if>
+        group by FLOOR(unix_timestamp(creation_time)/${timeInterval})
+        order by creation_time asc) t1,station_port_real_time_listen t2 where t1.id=t2.id ;
+    </select>
+</mapper>

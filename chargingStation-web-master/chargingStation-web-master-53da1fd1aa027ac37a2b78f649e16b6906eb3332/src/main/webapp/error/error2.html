@@ -1,0 +1,15 @@
+<script language="javascript">
+    function getParamFromUrl(name){
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null){
+            return unescape(r[2]);
+        }else{
+            return '';
+        }
+    }
+
+    var message = getParamFromUrl('message');
+    message = 'ERROR.['+ message +']';
+    document.write(message);
+</script>

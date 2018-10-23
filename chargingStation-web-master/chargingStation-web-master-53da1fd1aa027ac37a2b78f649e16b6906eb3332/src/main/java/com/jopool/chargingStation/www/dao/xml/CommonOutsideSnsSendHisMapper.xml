@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.CommonOutsideSnsSendHisMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="sns_category" property="snsCategory" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="receiver_sns_no" property="receiverSnsNo" jdbcType="VARCHAR" />
+    <result column="receiver_type" property="receiverType" jdbcType="VARCHAR" />
+    <result column="receiver_id" property="receiverId" jdbcType="BIGINT" />
+    <result column="send_datetime" property="sendDatetime" jdbcType="TIMESTAMP" />
+    <result column="send_purpose" property="sendPurpose" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="status_result" property="statusResult" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sns_category, title, receiver_sns_no, receiver_type, receiver_id, send_datetime, 
+    send_purpose, status, status_result, is_deleted, creator, creation_time, modifier, 
+    modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from common_outside_sns_send_his
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from common_outside_sns_send_his
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    insert into common_outside_sns_send_his (id, sns_category, title, receiver_sns_no,
+      receiver_type, receiver_id, send_datetime, 
+      send_purpose, status, status_result, 
+      is_deleted, creator, creation_time, 
+      modifier, modify_time, content
+      )
+    values (#{id,jdbcType=CHAR}, #{snsCategory,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{receiverSnsNo,jdbcType=VARCHAR},
+      #{receiverType,jdbcType=VARCHAR}, #{receiverId,jdbcType=BIGINT}, #{sendDatetime,jdbcType=TIMESTAMP}, 
+      #{sendPurpose,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{statusResult,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    insert into common_outside_sns_send_his
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="snsCategory != null" >
+        sns_category,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="receiverSnsNo != null" >
+        receiver_sns_no,
+      </if>
+      <if test="receiverType != null" >
+        receiver_type,
+      </if>
+      <if test="receiverId != null" >
+        receiver_id,
+      </if>
+      <if test="sendDatetime != null" >
+        send_datetime,
+      </if>
+      <if test="sendPurpose != null" >
+        send_purpose,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="statusResult != null" >
+        status_result,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="snsCategory != null" >
+        #{snsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverSnsNo != null" >
+        #{receiverSnsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverType != null" >
+        #{receiverType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="sendDatetime != null" >
+        #{sendDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendPurpose != null" >
+        #{sendPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="statusResult != null" >
+        #{statusResult,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    update common_outside_sns_send_his
+    <set >
+      <if test="snsCategory != null" >
+        sns_category = #{snsCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverSnsNo != null" >
+        receiver_sns_no = #{receiverSnsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverType != null" >
+        receiver_type = #{receiverType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null" >
+        receiver_id = #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="sendDatetime != null" >
+        send_datetime = #{sendDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendPurpose != null" >
+        send_purpose = #{sendPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="statusResult != null" >
+        status_result = #{statusResult,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    update common_outside_sns_send_his
+    set sns_category = #{snsCategory,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      receiver_sns_no = #{receiverSnsNo,jdbcType=VARCHAR},
+      receiver_type = #{receiverType,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=BIGINT},
+      send_datetime = #{sendDatetime,jdbcType=TIMESTAMP},
+      send_purpose = #{sendPurpose,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      status_result = #{statusResult,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.CommonOutsideSnsSendHis" >
+    update common_outside_sns_send_his
+    set sns_category = #{snsCategory,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      receiver_sns_no = #{receiverSnsNo,jdbcType=VARCHAR},
+      receiver_type = #{receiverType,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=BIGINT},
+      send_datetime = #{sendDatetime,jdbcType=TIMESTAMP},
+      send_purpose = #{sendPurpose,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      status_result = #{statusResult,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

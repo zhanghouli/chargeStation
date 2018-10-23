@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jopool.chargingStation.www.dao.StationMapper" >
+  <resultMap id="BaseResultMap" type="com.jopool.chargingStation.www.base.entity.Station" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="CHAR" />
+    <result column="estate_id" property="estateId" jdbcType="CHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_des" property="areaDes" jdbcType="VARCHAR" />
+    <result column="lng_e5" property="lngE5" jdbcType="INTEGER" />
+    <result column="lat_e5" property="latE5" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="port_count" property="portCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="consume_package_id" property="consumePackageId" jdbcType="CHAR" />
+    <result column="electric_bill" property="electricBill" jdbcType="INTEGER" />
+    <result column="operator_sharing_ratio" property="operatorSharingRatio" jdbcType="INTEGER" />
+    <result column="estate_sharing_ratio" property="estateSharingRatio" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="creator" property="creator" jdbcType="CHAR" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="StationPayment" type="com.jopool.chargingStation.www.vo.StationOrderPaymentVo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_des" property="areaDes" jdbcType="VARCHAR" />
+    <result column="lng_e5" property="lngE5" jdbcType="INTEGER" />
+    <result column="lat_e5" property="latE5" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="port_count" property="portCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="StationVo" type="com.jopool.chargingStation.www.vo.StationVo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_des" property="areaDes" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="port_count" property="portCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="electric_bill" property="electricBill" jdbcType="INTEGER" />
+    <result column="creation_time" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="estate_name" property="estateName" jdbcType="VARCHAR" />
+    <result column="estate_phone" property="estatePhone" jdbcType="VARCHAR" />
+    <result column="consume_packageName" property="consumePackageName" jdbcType="VARCHAR" />
+    <result column="consume_package_id" property="consumePackageId" jdbcType="VARCHAR" />
+    <result column="station_address" property="stationAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, operator_id, estate_id, number, name, area, area_des, lng_e5, lat_e5, address, 
+    port_count, status, consume_package_id, electric_bill, operator_sharing_ratio, estate_sharing_ratio, 
+    is_enabled, is_deleted, creator, creation_time, modifier, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from station
+    where id = #{id,jdbcType=CHAR}
+    and is_deleted = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update station SET  is_deleted = 1
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jopool.chargingStation.www.base.entity.Station" >
+    insert into station (id, operator_id, estate_id, 
+      number, name, area, 
+      area_des, lng_e5, lat_e5, 
+      address, port_count, status, 
+      consume_package_id, electric_bill, operator_sharing_ratio, 
+      estate_sharing_ratio, is_enabled, is_deleted, 
+      creator, creation_time, modifier, 
+      modify_time)
+    values (#{id,jdbcType=CHAR}, #{operatorId,jdbcType=CHAR}, #{estateId,jdbcType=CHAR}, 
+      #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{areaDes,jdbcType=VARCHAR}, #{lngE5,jdbcType=INTEGER}, #{latE5,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{portCount,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{consumePackageId,jdbcType=CHAR}, #{electricBill,jdbcType=INTEGER}, #{operatorSharingRatio,jdbcType=INTEGER}, 
+      #{estateSharingRatio,jdbcType=INTEGER}, #{isEnabled,jdbcType=BIT}, #{isDeleted,jdbcType=BIT}, 
+      #{creator,jdbcType=CHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jopool.chargingStation.www.base.entity.Station" >
+    insert into station
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="estateId != null" >
+        estate_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaDes != null" >
+        area_des,
+      </if>
+      <if test="lngE5 != null" >
+        lng_e5,
+      </if>
+      <if test="latE5 != null" >
+        lat_e5,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="portCount != null" >
+        port_count,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="consumePackageId != null" >
+        consume_package_id,
+      </if>
+      <if test="electricBill != null" >
+        electric_bill,
+      </if>
+      <if test="operatorSharingRatio != null" >
+        operator_sharing_ratio,
+      </if>
+      <if test="estateSharingRatio != null" >
+        estate_sharing_ratio,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="creationTime != null" >
+        creation_time,
+      </if>
+      <if test="modifier != null" >
+        modifier,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=CHAR},
+      </if>
+      <if test="estateId != null" >
+        #{estateId,jdbcType=CHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDes != null" >
+        #{areaDes,jdbcType=VARCHAR},
+      </if>
+      <if test="lngE5 != null" >
+        #{lngE5,jdbcType=INTEGER},
+      </if>
+      <if test="latE5 != null" >
+        #{latE5,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="portCount != null" >
+        #{portCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="consumePackageId != null" >
+        #{consumePackageId,jdbcType=CHAR},
+      </if>
+      <if test="electricBill != null" >
+        #{electricBill,jdbcType=INTEGER},
+      </if>
+      <if test="operatorSharingRatio != null" >
+        #{operatorSharingRatio,jdbcType=INTEGER},
+      </if>
+      <if test="estateSharingRatio != null" >
+        #{estateSharingRatio,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jopool.chargingStation.www.base.entity.Station" >
+    update station
+    <set >
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=CHAR},
+      </if>
+      <if test="estateId != null" >
+        estate_id = #{estateId,jdbcType=CHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaDes != null" >
+        area_des = #{areaDes,jdbcType=VARCHAR},
+      </if>
+      <if test="lngE5 != null" >
+        lng_e5 = #{lngE5,jdbcType=INTEGER},
+      </if>
+      <if test="latE5 != null" >
+        lat_e5 = #{latE5,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="portCount != null" >
+        port_count = #{portCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="consumePackageId != null" >
+        consume_package_id = #{consumePackageId,jdbcType=CHAR},
+      </if>
+      <if test="electricBill != null" >
+        electric_bill = #{electricBill,jdbcType=INTEGER},
+      </if>
+      <if test="operatorSharingRatio != null" >
+        operator_sharing_ratio = #{operatorSharingRatio,jdbcType=INTEGER},
+      </if>
+      <if test="estateSharingRatio != null" >
+        estate_sharing_ratio = #{estateSharingRatio,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=CHAR},
+      </if>
+      <if test="creationTime != null" >
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jopool.chargingStation.www.base.entity.Station" >
+    update station
+    set operator_id = #{operatorId,jdbcType=CHAR},
+      estate_id = #{estateId,jdbcType=CHAR},
+      number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      area_des = #{areaDes,jdbcType=VARCHAR},
+      lng_e5 = #{lngE5,jdbcType=INTEGER},
+      lat_e5 = #{latE5,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      port_count = #{portCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      consume_package_id = #{consumePackageId,jdbcType=CHAR},
+      electric_bill = #{electricBill,jdbcType=INTEGER},
+      operator_sharing_ratio = #{operatorSharingRatio,jdbcType=INTEGER},
+      estate_sharing_ratio = #{estateSharingRatio,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      creator = #{creator,jdbcType=CHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+    <!--custom -->
+  <select id="selectByNumber" resultMap="BaseResultMap" parameterType="string">
+    SELECT <include refid="Base_Column_List"/> FROM station WHERE is_deleted = 0 AND number = #{number,jdbcType=VARCHAR}
+  </select>
+    <select id="selectSearchStationVo" resultMap="StationVo">
+      SELECT
+      op.real_name as operator_name,e.contact_name as estate_name,e.contact_phone as estate_phone, s.consume_package_id as consume_package_id,
+      s.address as station_address,s.id,s.name,s.number,s.area,s.area_des,s.address,s.port_count,s.status,s.creation_time,s.modify_time
+      FROM  station s,operator o,estate e,passport op,passport ep
+      where s.is_deleted =0
+      and s.estate_id = e.id and s.operator_id =o.id and  o.passport_id = op.id and e.passport_id = ep.id
+      <if test="searchStationVo.status !='' and searchStationVo.status != null  ">
+            AND s.status = #{searchStationVo.status,jdbcType=VARCHAR}
+      </if>
+      <if test="searchStationVo.estateId != '' and searchStationVo.estateId !=null ">
+        AND e.id=#{searchStationVo.estateId,jdbcType=VARCHAR}
+      </if>
+      <if test="searchStationVo.operatorId != '' and searchStationVo.operatorId !=null ">
+        AND o.id=#{searchStationVo.operatorId,jdbcType=VARCHAR}
+      </if>
+        <if test="searchStationVo.keyword !=null and searchStationVo.keyword!=''">
+            AND (s.address LIKE CONCAT('%','${searchStationVo.keyword}','%') OR
+          s.name LIKE CONCAT('%','${searchStationVo.keyword}','%')OR
+          s.number  LIKE CONCAT('%','${searchStationVo.keyword}','%')OR
+          op.real_name LIKE CONCAT('%','${searchStationVo.keyword}','%') OR
+          e.contact_name LIKE CONCAT('%','${searchStationVo.keyword}','%'))
+        </if>
+        <if test="searchStationVo.areaID !=null and searchStationVo.areaID!=''">
+          AND  s.area LIKE CONCAT('%','${searchStationVo.areaID}','%')
+        </if>
+        ORDER BY s.creation_time DESC
+    </select>
+    <select id="selectByOperatorId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+      <include refid="Base_Column_List"/>
+      from station
+        where is_deleted = 0
+        <if test="operatorId != null and operatorId != '' ">
+            and operator_id = #{operatorId,jdbcType=CHAR}
+        </if>
+        <if test="estateId != null and estateId != '' ">
+            and estate_id = #{estateId,jdbcType=CHAR}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND (name LIKE CONCAT('%','${keyword}','%') OR number LIKE CONCAT('%','${keyword}','%') OR address LIKE CONCAT('%','${keyword}','%'))
+        </if>
+        <if test="city != null and city != '' ">
+          AND area_des LIKE CONCAT('%','${city}','%')
+        </if>
+        <!--<include refid="COMMON.ORDER"/>-->
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from station
+        where is_deleted = 0
+    </select>
+
+  <select id="selectStationKeyWord" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from station
+    where is_deleted = 0
+    and id = #{id,jdbcType=CHAR}
+    <if test=" keyword !=null and keyword !=''">
+      AND name LIKE CONCAT('%','${keyword}','%')
+    </if>
+    ORDER  BY creation_time DESC
+  </select>
+  <select id="selectStationByPackage" resultType="java.lang.Integer" >
+    select
+    count(*)
+    from station
+    where is_deleted = 0
+    and consume_package_id = #{chargeCostPackageId,jdbcType=CHAR}
+  </select>
+
+    <select id="selectStationByOperatorIdAndEstateId" resultType="java.lang.Integer" >
+        select
+        count(*)
+        from station
+        where is_deleted = 0
+        <if test=" operatorId != '' and operatorId != null">
+        AND   operator_id = #{operatorId,jdbcType=CHAR}
+        </if>
+        <if test=" estateId != '' and estateId != null">
+            AND   estate_id = #{operatorId,jdbcType=CHAR}
+        </if>
+    </select>
+
+    <select id="selectStationByEstateIdOrOperatorId" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List"/>
+        from station
+        where is_deleted = 0
+        <if test=" estateId !=null and estateId !=''">
+            AND  estate_id = #{estateId,jdbcType=CHAR}
+        </if>
+        <if test=" operatorId !=null and operatorId !=''">
+            AND  operator_id = #{operatorId,jdbcType=CHAR}
+        </if>
+        ORDER  BY creation_time DESC
+    </select>
+</mapper>
